@@ -43,11 +43,7 @@ export default function RootLayout({
 						<main className={clsx(
 							"container mx-auto max-w-7xl pt-16 px-6 flex-grow",
 							
-						)} style={{ backgroundImage: 'url("/dessert.jpg")',
-						backgroundSize: "cover",
-						backgroundPosition: "center",
-						backgroundRepeat: "no-repeat"
-						}}>
+						)} >
 							{children}
 						</main>
 						<footer className="w-full flex items-center justify-center py-3">

@@ -5,12 +5,12 @@ export const siteConfig = {
 	description: "Make beautiful websites regardless of your design experience.",
 	navItems: [
 		{
-			label: "Chat",
-			href: "/chat",
-		},
-		{
 			label: "How To",
 			href: "/about",
+		},
+		{
+			label: "Chat",
+			href: "/chat",
 		}
 	],
 	navMenuItems: [

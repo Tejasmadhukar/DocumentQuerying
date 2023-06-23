@@ -15,6 +15,7 @@
     "@nextui-org/kbd": "^0.0.0-dev-v2-20230622022515",
     "@nextui-org/link": "^0.0.0-dev-v2-20230622022515",
     "@nextui-org/navbar": "^0.0.0-dev-v2-20230622022515",
+    "@nextui-org/react": "^1.0.0-beta.13",
     "@nextui-org/snippet": "^0.0.0-dev-v2-20230622022515",
     "@nextui-org/switch": "^0.0.0-dev-v2-20230622022515",
     "@nextui-org/system": "^0.0.0-dev-v2-20230622022515",

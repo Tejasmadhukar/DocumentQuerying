@@ -9,7 +9,8 @@ import { GithubIcon } from "@/components/icons";
 
 export default function Home() {
 	return (
-		<section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
+		<section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10" 
+		style={{ backgroundImage: 'url("https://cdn.dribbble.com/userupload/2742976/file/original-808ab4008e9c95ff177c41c041ec80e3.png?compress=1&resize=1024x769")' }}>
 			<div className="inline-block max-w-lg text-center justify-center">
 				<h1 className={title()}>Make&nbsp;</h1>
 				<h1 className={title({ color: "violet" })}>beautiful&nbsp;</h1>

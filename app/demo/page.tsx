@@ -1,16 +1,22 @@
 'use client'
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import ChatHistory from '@/components/ChatHistory';
 import ChatInput from '@/components/ChatInput';
+import { useTheme } from "next-themes";
 import { Button } from '@nextui-org/button';
+import { Avatar, Spacer } from '@nextui-org/react';
 
 const ChatPage: React.FC = () => {
   const [titles, setTitles] = useState<string[]>(['lmao test title 1', 'lmao test title 2']);
   const [messages, setMessages] = useState<string[]>(['msg test message 1', 'msg test message 2']);
 
+  const {theme,setTheme} = useTheme();
+
   const handleSendMessage = (message: string) => {
     setMessages((prevMessages) => [...prevMessages, message]);
   };
+
+
 
   return (
     <div className="flex h-screen">
@@ -23,19 +29,25 @@ const ChatPage: React.FC = () => {
             <ChatHistory titles={titles}/>
           </div>
       </div>
-      
+
       <div className="w-3/4">
         {/* Main Part */}
-        
-        <div className="h-screen flex flex-col p-4"> 
+        <div className="h-screen flex flex-col justify-center p-4"> 
 
           {/* Chat Screen */}
           <div className="flex-1 overflow-y-auto">
             {messages.map((message, index) => (
-              <div className="mb-2" key={index}>
-                <div className="p-2 rounded-lg">
-                  <p>{message}</p>
-                </div>
+              <div className="mb-2 flex items-center" key={index}>
+                  <Avatar
+                    size="lg"
+                    src="https://i.pravatar.cc/150?u=a042581f4e25056704b"
+                    zoomed
+                  />
+                  <Spacer x={1} />                    
+                    <div className="bg-slate-200 dark:bg-slate-800  rounded-lg flex-grow p-2">
+                      <p>{message}</p>
+                    </div>      
+                  <Spacer y={2}/>
               </div>
             ))}
           </div>

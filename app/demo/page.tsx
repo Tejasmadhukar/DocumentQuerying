@@ -1,8 +1,7 @@
 'use client'
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import ChatHistory from '@/components/ChatHistory';
 import ChatInput from '@/components/ChatInput';
-import { useTheme } from "next-themes";
 import { Button } from '@nextui-org/button';
 import { Avatar, Spacer } from '@nextui-org/react';
 
@@ -10,7 +9,6 @@ const ChatPage: React.FC = () => {
   const [titles, setTitles] = useState<string[]>(['lmao test title 1', 'lmao test title 2']);
   const [messages, setMessages] = useState<string[]>(['msg test message 1', 'msg test message 2']);
 
-  const {theme,setTheme} = useTheme();
 
   const handleSendMessage = (message: string) => {
     setMessages((prevMessages) => [...prevMessages, message]);

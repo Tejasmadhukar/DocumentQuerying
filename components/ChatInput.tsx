@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Input } from '@nextui-org/input';
 import { Button } from '@nextui-org/button';
+
 interface ChatInputProps {
   onSendMessage: (message: string) => void;
 }

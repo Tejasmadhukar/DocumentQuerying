@@ -19,7 +19,7 @@ const ChatHistory: React.FC<ChatHistoryProps> = ({titles}) => {
 
         return (
           <div
-            className={`flex items-center mb-2 rounded-full ${
+            className={`flex items-center mb-2 rounded-full cursor-pointer ${
               isSelected ? 'bg-slate-200 dark:bg-slate-800' : 'hover:bg-slate-200'
             } dark:hover:bg-slate-800`}
             key={index}

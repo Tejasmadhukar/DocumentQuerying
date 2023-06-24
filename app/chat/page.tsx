@@ -39,7 +39,7 @@ const ChatPage: React.FC = () => {
                     zoomed
                   />
                   <Spacer x={1} />                    
-                    <div className="bg-slate-200 dark:bg-slate-800  rounded-lg flex-grow p-2">
+                    <div className="bg-slate-200 dark:bg-slate-800 rounded-lg flex-grow p-2">
                       <p>{message}</p>
                     </div>      
                   <Spacer y={2}/>

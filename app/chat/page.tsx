@@ -36,7 +36,6 @@ const ChatPage: React.FC = () => {
                   <Avatar
                     size="lg"
                     src="https://i.pravatar.cc/150?u=a042581f4e25056704b"
-                    zoomed
                   />
                   <Spacer x={1} />                    
                     <div className="bg-slate-200 dark:bg-slate-800 rounded-lg flex-grow p-2">

@@ -22,9 +22,8 @@ export default function Home() {
 
 			<div className="flex gap-3">
 				<Link
-					isExternal
 					as={NextLink}
-					href={siteConfig.links.docs}
+					href={siteConfig.links.demo}
 					className={buttonStyles({ color: "primary", radius: "full", variant: "ghost" })}
 				>
 					Continue

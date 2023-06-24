@@ -3,22 +3,74 @@ import { EyeFilledIcon, EyeSlashFilledIcon } from "@/components/icons";
 import { title } from "@/components/primitives";
 import { Input } from "@nextui-org/input";
 import { Spacer, Tabs, Tab, Link, Button } from "@nextui-org/react";
-
 import { useState, useMemo, Key } from "react";
+import { useDispatch } from "react-redux";
+import { login } from "@/redux/features/auth-slice";
+
+interface LoginFormType{
+    email: string,
+    password: string
+}
+
+// interface LoginResponse{
+//     user?: userType,
+//     message?: string,
+//     token?: string
+// }
+
+// type userType = {
+//     userID: number,
+//     email: string,
+//     name: string,
+//     password: string
+// }
 
 export default function Auth() {
-    const [value, setValue] = useState("");
+    const [InputValue, setInputValue] = useState("");
+    const [PasswordValue, setPasswordValue] = useState("");
     const [isVisible, setIsVisible] = useState(false);
     const [selected, setSelected] = useState<Key>("login");
+    const dispatch = useDispatch();
 
     const toggleVisibility = () => setIsVisible(!isVisible);
 
-    const validateEmail = (value:string) => value.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}$/i);
+    const validateEmail = (InputValue:string) => InputValue.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}$/i);
   
     const validationState = useMemo(() => {
-      if (value === "") return undefined;
-      return validateEmail(value) ? "valid" : "invalid";
-    }, [value]);
+      if (InputValue === "") return undefined;
+      return validateEmail(InputValue) ? "valid" : "invalid";
+    }, [InputValue]);
+
+    async function HandleLogin(data:LoginFormType) {
+        console.log(data);    
+        const email = data.email ;
+        const password = data.password;
+    
+        const Login:LoginFormType = {
+            email,
+            password
+        };
+    
+        try {
+            const response = await fetch('/auth/api/login',{
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(Login),
+            });
+            const res = await response.json();
+            console.log(res);
+            dispatch(login({
+                username: res.user?.name ?? "",
+                userID: res.user?.userID ?? -1,
+                token: 'goofyaa token'
+            }))
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
 
     return (
         <>
@@ -33,23 +85,27 @@ export default function Auth() {
                 onSelectionChange={(key: Key) => setSelected(key)}
             >
                 <Tab key="login" title="Login">
-                    <form className="flex flex-col gap-4">  
+                    <form onSubmit={(e)=>{e.preventDefault(); HandleLogin({email: InputValue,password: PasswordValue});}} className="flex flex-col gap-4">  
                         <Input
                             isRequired
-                            value={value}
+                            value={InputValue}
                             type="email"
+                            name="email"
                             label="Email"
                             variant="bordered"
                             color={validationState === "invalid" ? "danger" : "success"}
                             errorMessage={validationState === "invalid" && "Please enter a valid email"}
                             validationState={validationState}
-                            onValueChange={setValue}
+                            onValueChange={setInputValue}
                             className="max-w-xs"
                         />
                         <Input
                             isRequired
                             color = 'secondary'
+                            name="password"
                             label="Password"
+                            value={PasswordValue}
+                            onValueChange={setPasswordValue}
                             variant="bordered"
                             endContent={
                                 <button className="focus:outline-none" type="button" onClick={toggleVisibility}>
@@ -70,7 +126,7 @@ export default function Auth() {
                             </Link>
                         </p>
                         <div className="flex gap-2 justify-end">
-                            <Button fullWidth color="primary">
+                            <Button type="submit" fullWidth color="primary">
                                 Login
                             </Button>
                         </div>
@@ -81,20 +137,22 @@ export default function Auth() {
                         <Input isRequired variant="bordered" label="Name" />
                         <Input
                             isRequired
-                            value={value}
+                            value={InputValue}
                             type="email"
                             label="Email"
                             variant="bordered"
                             color={validationState === "invalid" ? "danger" : "success"}
                             errorMessage={validationState === "invalid" && "Please enter a valid email"}
                             validationState={validationState}
-                            onValueChange={setValue}
+                            onValueChange={setInputValue}
                             className="max-w-xs"
                         />
                         <Input
                             isRequired
                             color = 'secondary'
                             label="Password"
+                            value={PasswordValue}
+                            onValueChange={setPasswordValue}
                             variant="bordered"
                             endContent={
                                 <button className="focus:outline-none" type="button" onClick={toggleVisibility}>
@@ -123,8 +181,6 @@ export default function Auth() {
                 </Tab>
 
             </Tabs>
-            
-           
         </>
     )
 }

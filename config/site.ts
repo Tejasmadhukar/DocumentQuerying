@@ -31,6 +31,6 @@ export const siteConfig = {
 		github: "https://github.com/nextui-org/nextui",
 		docs: "https://nextui-docs-v2.vercel.app",
     	auth: "/chat",
-		demo: "/demo"
+		demo: "/chat"
 	},
 };

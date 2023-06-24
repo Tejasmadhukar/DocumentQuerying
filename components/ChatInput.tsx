@@ -30,6 +30,7 @@ const ChatInput: React.FC<ChatInputProps> = ({onSendMessage}) => {
           value={message}
         />
         <Button
+          size='lg'
           color="success" 
           className="py-2 rounded-r-lg"
         >

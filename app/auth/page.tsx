@@ -12,22 +12,16 @@ interface LoginFormType{
     password: string
 }
 
-// interface LoginResponse{
-//     user?: userType,
-//     message?: string,
-//     token?: string
-// }
-
-// type userType = {
-//     userID: number,
-//     email: string,
-//     name: string,
-//     password: string
-// }
+interface SignupFormType {
+    name: string,
+    email: string,
+    password: string
+}
 
 export default function Auth() {
     const [InputValue, setInputValue] = useState("");
     const [PasswordValue, setPasswordValue] = useState("");
+    const [Name,setName] = useState("");
     const [isVisible, setIsVisible] = useState(false);
     const [selected, setSelected] = useState<Key>("login");
     const dispatch = useDispatch();
@@ -66,6 +60,30 @@ export default function Auth() {
                 userID: res.user?.userID ?? -1,
                 token: 'goofyaa token'
             }))
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async function HandleSignup(data:SignupFormType) {
+        console.log(data);
+        const name = data.name;
+        const email = data.email;
+        const password = data.password;
+
+        const Signup:SignupFormType = {
+            name, email, password
+        }
+
+        try {
+            const response = await fetch('/auth/api/signup', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(Signup),
+            })
+            const res = await response.json();
         } catch (error) {
             console.log(error);
         }
@@ -133,8 +151,8 @@ export default function Auth() {
                     </form>
                 </Tab>
                 <Tab key="sign-up" title="Sign up">
-                    <form className="flex flex-col gap-4 h-[300px]">
-                        <Input isRequired variant="bordered" label="Name" />
+                    <form onSubmit={(e)=>{e.preventDefault(); HandleSignup({name: Name,email: InputValue,password: PasswordValue});}} className="flex flex-col gap-4 h-[300px]">
+                        <Input isRequired value={Name} onValueChange={setName} variant="bordered" label="Name" />
                         <Input
                             isRequired
                             value={InputValue}
@@ -173,7 +191,7 @@ export default function Auth() {
                             </Link>
                         </p>
                         <div className="flex gap-2 justify-end">
-                            <Button fullWidth color="primary">
+                            <Button type="submit" fullWidth color="primary">
                                 Sign up
                             </Button>
                         </div>

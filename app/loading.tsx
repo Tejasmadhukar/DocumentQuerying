@@ -6,7 +6,7 @@ export default function App() {
     <div className="2-xl" style={{height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <Progress
             color="secondary"
-            size="xl"
+            size="md"
             isIndeterminate
             aria-label="Loading..."
             className="max-w-md"

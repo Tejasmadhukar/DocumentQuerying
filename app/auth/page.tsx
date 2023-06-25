@@ -4,8 +4,7 @@ import { title } from "@/components/primitives";
 import { Input } from "@nextui-org/input";
 import { Spacer, Tabs, Tab, Link, Button } from "@nextui-org/react";
 import { useState, useMemo, Key } from "react";
-import { useDispatch } from "react-redux";
-import { login } from "@/redux/features/auth-slice";
+import ContinueWithGoogleButton from "@/components/ContinueWithGoogle";
 
 interface LoginFormType{
     email: string,
@@ -24,7 +23,6 @@ export default function Auth() {
     const [Name,setName] = useState("");
     const [isVisible, setIsVisible] = useState(false);
     const [selected, setSelected] = useState<Key>("login");
-    const dispatch = useDispatch();
 
     const toggleVisibility = () => setIsVisible(!isVisible);
 
@@ -55,11 +53,6 @@ export default function Auth() {
             });
             const res = await response.json();
             console.log(res);
-            dispatch(login({
-                username: res.user?.name ?? "",
-                userID: res.user?.userID ?? -1,
-                token: 'goofyaa token'
-            }))
         } catch (error) {
             console.log(error);
         }
@@ -94,6 +87,7 @@ export default function Auth() {
         <>
             <Spacer y={3} />
             <h1 className={title()}>Auth</h1>
+            <ContinueWithGoogleButton />
             <Spacer y={10} />
             <Tabs
                 fullWidth

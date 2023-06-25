@@ -5,7 +5,6 @@ import { fontSans } from "@/config/fonts";
 import { Providers } from "./providers";
 import { Navbar } from "@/components/navbar";
 import clsx from "clsx";
-import { ReduxProvider } from "@/redux/provider";
 
 export const metadata: Metadata = {
 	title: {
@@ -38,13 +37,11 @@ export default function RootLayout({
 					fontSans.variable
 				)}
 			>
-				<Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
+				<Providers themeProps={{ attribute: "class", defaultTheme: "light" }}>
 					<div className="relative flex flex-col h-screen">
 						<Navbar />
 						<main className="container mx-auto pt-16 px-6 flex-grow">
-							<ReduxProvider>
 								{children}
-							</ReduxProvider>
 						</main>
 						<footer className="w-full flex items-center justify-center py-3">
 							

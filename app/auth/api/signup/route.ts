@@ -1,6 +1,6 @@
-import { NextResponse } from "next/server";
-import { prisma } from "@/db";
+import { prisma } from "@/config/db";
 import encryptPassword from "@/config/hash";
+import { NextResponse } from "next/server";
 
 interface SignUpType{
     name: string,

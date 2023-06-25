@@ -1,6 +1,6 @@
-import { NextResponse } from "next/server";
-import { prisma } from "@/db";
 import Compare from "@/config/compare";
+import { prisma } from "@/config/db";
+import { NextResponse } from "next/server";
 
 export interface LoginParams{
     email: string,

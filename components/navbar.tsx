@@ -25,8 +25,6 @@ import {
 import { Logo } from "@/components/icons";
 
 
-import { redirect } from 'next/navigation'
-
 export const Navbar = () => {
 	return (
 		<NextUINavbar maxWidth="xl" position="fixed">

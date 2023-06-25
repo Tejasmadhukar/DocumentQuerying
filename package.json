@@ -23,7 +23,6 @@
     "@prisma/client": "^4.16.1",
     "@react-aria/ssr": "^3.6.0",
     "@react-aria/visually-hidden": "^3.8.1",
-    "@reduxjs/toolkit": "^1.9.5",
     "@types/node": "20.2.5",
     "@types/react": "18.2.8",
     "@types/react-dom": "18.2.4",
@@ -41,8 +40,6 @@
     "prisma": "^4.16.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-google-button": "^0.7.2",
-    "react-redux": "^8.1.1",
     "tailwind-variants": "^0.1.5",
     "tailwindcss": "3.3.2",
     "typescript": "5.0.4"

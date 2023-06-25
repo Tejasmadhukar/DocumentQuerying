@@ -1,13 +1,17 @@
-'use client'
-import React from 'react';
+"use client"
+import { Button } from "@nextui-org/button";
+import { signIn } from "next-auth/react";
+import { GoogleIcon } from "./icons";
+const ContinueWithGoogleButton = () => {
 
-const ContinueWithGoogleButton: React.FC = ({}) => {
+  const HandleClick = () =>{
+      signIn("google");
+  }
+
   return (
-    <button
-      className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
-    >
-      Continue with Google
-    </button>
+    <Button onPress={HandleClick} size="lg" variant="ghost" color="primary" startContent={<GoogleIcon />}>
+        Sign in With Google
+    </Button>
   );
 };
 

@@ -1,5 +1,4 @@
 import { title } from "@/components/primitives";
-import clsx from "clsx";
 
 export default function NotAllowedChat () {
     return (

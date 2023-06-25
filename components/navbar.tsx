@@ -18,12 +18,10 @@ import {
 	GithubIcon,
 } from "@/components/icons";
 import { Logo } from "@/components/icons";
-import { getServerSession } from "next-auth";
-import { authConfig } from "@/config/auth";
-import LogInButton from "./LoginButton";
-import { LogoutButton } from "./LogoutButton";
-export const Navbar =async () => {
-	const session = await getServerSession(authConfig);
+import AuthButton from "./AuthButton";
+
+export const Navbar = () => {
+
 	return (
 		<NextUINavbar maxWidth="xl" position="fixed">
 			<NavbarContent className="basis-1/5 sm:basis-full" justify="start">
@@ -66,11 +64,7 @@ export const Navbar =async () => {
 					<ThemeSwitch />
 				</NavbarItem>
 				<NavbarItem className="hidden md:flex">
-				{!session ? (
-					<LogInButton />
-				) : (
-					<LogoutButton />
-				)}
+					<AuthButton />
 				</NavbarItem>
 			</NavbarContent>
 

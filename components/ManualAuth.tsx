@@ -4,6 +4,8 @@ import { title } from "@/components/primitives";
 import { Input } from "@nextui-org/input";
 import { Button, Divider, Link, Spacer, Tab, Tabs, Progress } from "@nextui-org/react";
 import { Key, useMemo, useState } from "react";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 interface LoginFormType{
     email: string,
@@ -17,6 +19,7 @@ interface SignupFormType {
 }
 
 export default function ManualAuth() {
+    const router = useRouter();
     const [InputValue, setInputValue] = useState("");
     const [PasswordValue, setPasswordValue] = useState("");
     const [Name,setName] = useState("");
@@ -37,24 +40,20 @@ export default function ManualAuth() {
         console.log(data);    
         const email = data.email ;
         const password = data.password;
-    
-        const Login:LoginFormType = {
+        
+        setMessage("Loading");
+
+        const signInResponse = await signIn("credentials", {
             email,
-            password
-        };
-    
-        try {
-            const response = await fetch('/auth/api/login',{
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(Login),
-            });
-            const res = await response.json();
-            console.log(res);
-        } catch (error) {
-            console.log(error);
+            password,
+            redirect: false,
+        })
+
+        if(signInResponse && !signInResponse.error){
+            router.push('/chat')
+        }else{
+            console.log("Error: ", signInResponse);
+            setMessage("Invalid Username or Password");
         }
     }
 

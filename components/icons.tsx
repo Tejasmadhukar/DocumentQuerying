@@ -284,3 +284,27 @@ export const GoogleIcon: React.FC<IconSvgProps> = (props) => (
 		<path fill="#EB4335" d="M130.55 50.479c24.514 0 41.05 10.589 50.479 19.438l36.844-35.974C195.245 12.91 165.798 0 130.55 0 79.49 0 35.393 29.301 13.925 71.947l42.211 32.783c10.59-31.477 39.891-54.251 74.414-54.251"></path>
 	</svg>
 );
+
+export const UserIcon: React.FC<IconSvgProps> = (props) => (
+	<svg viewBox="0 0 256 262"
+		width="24"
+		height="24"
+		xmlns="http://www.w3.org/2000/svg" 
+		fill="#ff0000" 
+		stroke="#ff0000"
+		{...props}
+	>
+		<g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+		<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+		<g id="SVGRepo_iconCarrier"> 
+			<title></title> 
+			<g id="Complete"> 
+				<g id="user"> <g> 
+					<path d="M20,21V19a4,4,0,0,0-4-4H8a4,4,0,0,0-4,4v2" fill="none" stroke="#ff0000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path> 
+					<circle cx="12" cy="7" fill="none" r="4" stroke="#ff0000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle> 
+					</g> 
+				</g> 
+			</g>
+		</g>
+	</svg>
+)

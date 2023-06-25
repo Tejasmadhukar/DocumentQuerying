@@ -2,6 +2,7 @@
 import { Button } from "@nextui-org/button";
 import { signIn } from "next-auth/react";
 import { GoogleIcon } from "./icons";
+
 const ContinueWithGoogleButton = () => {
 
   const HandleClick = () =>{

@@ -15,7 +15,7 @@ import { link as linkStyles } from "@nextui-org/theme";
 import { siteConfig } from "@/config/site";
 import NextLink from "next/link";
 import clsx from "clsx";
-
+import { LogoutButton } from "./LogoutButton";
 import { ThemeSwitch } from "@/components/theme-switch";
 import {
 	GithubIcon,
@@ -23,9 +23,12 @@ import {
 } from "@/components/icons";
 
 import { Logo } from "@/components/icons";
+import { getServerSession } from "next-auth";
+import { authConfig } from "@/config/auth";
 
-
-export const Navbar = () => {
+export const Navbar =async () => {
+	const session = await getServerSession(authConfig);
+	console.log(session);
 	return (
 		<NextUINavbar maxWidth="xl" position="fixed">
 			<NavbarContent className="basis-1/5 sm:basis-full" justify="start">
@@ -68,7 +71,7 @@ export const Navbar = () => {
 					<ThemeSwitch />
 				</NavbarItem>
 				<NavbarItem className="hidden md:flex">
-
+				{!session ? (
 					<Button
 					as={Link}
 					href={siteConfig.links.auth}
@@ -76,6 +79,11 @@ export const Navbar = () => {
 					>
 						Login
 					</Button>
+					
+				) : (
+					<LogoutButton />
+				)}
+					
 				
 					
 				</NavbarItem>

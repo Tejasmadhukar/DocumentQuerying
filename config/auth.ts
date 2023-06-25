@@ -26,12 +26,12 @@ export const authConfig: NextAuthOptions = {
             },
             async authorize(credentials, req) {
                 if(!credentials || !credentials.email || !credentials.password) return null;
-
+                console.log(credentials.email, credentials.password);
                 const user = await prisma.user.findFirst({
                     where: {email: credentials.email},
                 });
 
-                if(user && await Compare(credentials.email, user.password)){
+                if(user && await Compare(credentials.password, user.password)){
                     return user as any;
                 }
                 return null;

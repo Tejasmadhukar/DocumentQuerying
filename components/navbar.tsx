@@ -8,22 +8,20 @@ import {
 	NavbarMenuItem,
 } from "@nextui-org/navbar";
 import { Link } from "@nextui-org/link";
-import { useState, useEffect } from "react";
 import { link as linkStyles } from "@nextui-org/theme";
 
 import { siteConfig } from "@/config/site";
 import NextLink from "next/link";
 import clsx from "clsx";
-import { LogoutButton } from "./LogoutButton";
 import { ThemeSwitch } from "@/components/theme-switch";
 import {
 	GithubIcon,
 } from "@/components/icons";
-
 import { Logo } from "@/components/icons";
 import { getServerSession } from "next-auth";
 import { authConfig } from "@/config/auth";
 import LogInButton from "./LoginButton";
+import { LogoutButton } from "./LogoutButton";
 export const Navbar =async () => {
 	const session = await getServerSession(authConfig);
 	return (

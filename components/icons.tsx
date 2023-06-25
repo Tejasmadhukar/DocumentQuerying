@@ -285,26 +285,10 @@ export const GoogleIcon: React.FC<IconSvgProps> = (props) => (
 	</svg>
 );
 
-export const UserIcon: React.FC<IconSvgProps> = (props) => (
-	<svg viewBox="0 0 256 262"
-		width="24"
-		height="24"
-		xmlns="http://www.w3.org/2000/svg" 
-		fill="#ff0000" 
-		stroke="#ff0000"
-		{...props}
-	>
-		<g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-		<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-		<g id="SVGRepo_iconCarrier"> 
-			<title></title> 
-			<g id="Complete"> 
-				<g id="user"> <g> 
-					<path d="M20,21V19a4,4,0,0,0-4-4H8a4,4,0,0,0-4,4v2" fill="none" stroke="#ff0000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path> 
-					<circle cx="12" cy="7" fill="none" r="4" stroke="#ff0000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle> 
-					</g> 
-				</g> 
-			</g>
-		</g>
-	</svg>
+export const RedUserIcon: React.FC<IconSvgProps> = (props) => (
+	<svg width="256px" height="256px" viewBox="-2.4 -2.4 28.80 28.80" xmlns="http://www.w3.org/2000/svg" fill="#000000" stroke="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.288"></g><g id="SVGRepo_iconCarrier"> <title></title> <g id="Complete"> <g id="user"> <g> <path d="M20,21V19a4,4,0,0,0-4-4H8a4,4,0,0,0-4,4v2" fill="none" stroke="#f31260" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path> <circle cx="12" cy="7" fill="none" r="4" stroke="#f31260" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle> </g> </g> </g> </g></svg>
+)
+
+export const GreenUserIcon: React.FC<IconSvgProps> = (props) => (
+	<svg width="256px" height="256px" viewBox="-2.4 -2.4 28.80 28.80" xmlns="http://www.w3.org/2000/svg" fill="#000000" stroke="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.288"></g><g id="SVGRepo_iconCarrier"> <title></title> <g id="Complete"> <g id="user"> <g> <path d="M20,21V19a4,4,0,0,0-4-4H8a4,4,0,0,0-4,4v2" fill="none" stroke="#17c964" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path> <circle cx="12" cy="7" fill="none" r="4" stroke="#17c964" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle> </g> </g> </g> </g></svg>
 )

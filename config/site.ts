@@ -28,7 +28,7 @@ export const siteConfig = {
 		},
 	],
 	links: {
-		github: "https://github.com/nextui-org/nextui",
+		github: "https://github.com/Tejasmadhukar/Pinecone-Frontend",
     	auth: "/auth",
 		demo: "/chat"
 	},

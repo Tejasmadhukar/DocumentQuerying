@@ -160,7 +160,7 @@ export default function ManualAuth() {
                             </Link>
                         </p>
                         <div className="flex gap-2 justify-end">
-                            <Button  type="submit" fullWidth color="secondary">
+                            <Button  type="submit" fullWidth color="primary">
                                 Login
                             </Button>
                         </div>
@@ -207,7 +207,7 @@ export default function ManualAuth() {
                             </Link>
                         </p>
                         <div className="flex gap-2 justify-end">
-                            <Button type="submit" fullWidth color="secondary">
+                            <Button type="submit" fullWidth color="primary">
                                 Sign up
                             </Button>
                         </div>

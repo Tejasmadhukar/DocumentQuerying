@@ -37,7 +37,6 @@ export default function ManualAuth() {
     }, [InputValue]);
 
     async function HandleLogin(data:LoginFormType) {
-        console.log(data);    
         const email = data.email ;
         const password = data.password;
         
@@ -58,7 +57,6 @@ export default function ManualAuth() {
     }
 
     async function HandleSignup(data:SignupFormType) {
-        console.log(data);
         const name = data.name;
         const email = data.email;
         const password = data.password;
@@ -78,7 +76,6 @@ export default function ManualAuth() {
                 body: JSON.stringify(Signup),
             })
             const res = await response.json();
-            console.log(res);
             if(response.ok){
                 setMessage("Signup Successful. Please Login!"); 
                 setSelected("login");

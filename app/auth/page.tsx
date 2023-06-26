@@ -1,8 +1,8 @@
-import ManualAuth from "@/components/ManualAuth"
-import ContinueWithGoogleButton from "@/components/ContinueWithGoogle"
+import ContinueWithGoogleButton from "@/components/AuthPageComponents/ContinueWithGoogle"
+import ManualAuth from "@/components/AuthPageComponents/ManualAuth"
+import { authConfig } from "@/config/auth"
 import { getServerSession } from "next-auth"
 import { redirect } from "next/navigation"
-import { authConfig } from "@/config/auth"
 export default async function Auth() {
     const session = await getServerSession(authConfig);
     

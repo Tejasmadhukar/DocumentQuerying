@@ -1,7 +1,7 @@
 'use client'
 import React, {useState} from 'react';
-import ChatHistory from '@/components/ChatHistory';
-import ChatInput from '@/components/ChatInput';
+import ChatHistory from '@/components/ChatPageComponents/ChatHistory';
+import ChatInput from '@/components/ChatPageComponents/ChatInput';
 import { Button } from '@nextui-org/button';
 import { Avatar, Spacer } from '@nextui-org/react';
 

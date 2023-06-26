@@ -1,7 +1,7 @@
 "use client"
-import { RedUserIcon } from "./icons";
 import { Button } from "@nextui-org/button";
 import { signOut } from "next-auth/react";
+import { RedUserIcon } from "../icons";
 
 export function LogoutButton () {
     return (

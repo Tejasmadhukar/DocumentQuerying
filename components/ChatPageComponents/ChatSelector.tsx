@@ -6,10 +6,10 @@ export default function ChatSelector() {
     const session = useSession();
     return (
         <>
-        {session.status=="unauthenticated" ? (
-            <NotAllowedChat />
-        ) : session.status=="authenticated" && (
+        {session.status=="authenticated" ? (
             <AllowedChatPage />
+        ) : (
+            <NotAllowedChat />
         )}
         </>
     )

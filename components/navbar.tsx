@@ -91,6 +91,9 @@ export const Navbar = () => {
 							</Link>
 						</NavbarMenuItem>
 					))}
+				<NavbarItem>
+					<AuthButton />
+				</NavbarItem>
 				</div>
 			</NavbarMenu>
 		</NextUINavbar>

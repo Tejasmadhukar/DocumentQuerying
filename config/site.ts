@@ -22,10 +22,6 @@ export const siteConfig = {
 			label: "How To",
 			href: "/about",
 		},
-		{
-			label: "Logout",
-			href: "/logout",
-		},
 	],
 	links: {
 		github: "https://github.com/Tejasmadhukar/Pinecone-Frontend",

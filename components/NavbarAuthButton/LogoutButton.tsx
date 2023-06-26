@@ -7,7 +7,7 @@ export function LogoutButton () {
     return (
         <Button
             startContent={<RedUserIcon />}
-            onPress={(e)=>signOut()}
+            onPress={()=>signOut()}
             variant="flat"
             color="danger"
         >

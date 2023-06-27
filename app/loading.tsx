@@ -3,7 +3,7 @@ import { Progress } from "@nextui-org/react";
 
 export default function App() {
   return (
-    <div className="2-xl" style={{height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+    <div className="xl" style={{height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <Progress
             color="secondary"
             size="md"

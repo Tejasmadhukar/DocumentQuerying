@@ -1,12 +1,9 @@
-"use client"
 import NotAllowedChat from "@/components/ChatPageComponents/UnAuthenticatedChat";
 import AllowedChatPage from "@/components/ChatPageComponents/AuthenticatedChat";
-import { useSession } from "next-auth/react";
-export default function ChatSelector() {
-    const session = useSession();
+export default function ChatSelector({ session }: { session: any }) {
     return (
         <>
-        {session.status=="authenticated" ? (
+        {session ? (
             <AllowedChatPage />
         ) : (
             <NotAllowedChat />

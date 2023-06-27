@@ -1,7 +1,7 @@
 export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
-	name: "Personalised GPT",
+	name: "GPT for you",
 	description: "GPT made to think specifically for you.",
 	navItems: [
 		{

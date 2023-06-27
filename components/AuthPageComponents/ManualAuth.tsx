@@ -50,6 +50,7 @@ export default function ManualAuth() {
 
         if(signInResponse && !signInResponse.error){
             router.push('/chat')
+            router.refresh();
         }else{
             console.log("Error: ", signInResponse);
             setMessage("Invalid Username or Password");

@@ -6,7 +6,7 @@ import { redirect } from "next/navigation"
 export default async function Auth() {
     const session = await getServerSession(authConfig);
     
-    if(session) return redirect('/chat');
+    if(session) redirect('/chat');
 
     return (
         <>

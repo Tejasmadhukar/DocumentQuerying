@@ -1,11 +1,11 @@
-import "@/styles/globals.css";
-import { Metadata } from "next";
-import { siteConfig } from "@/config/site";
+// import { Navbar } from "@/components/NavbarAuthButton/navbar";
+import Nav from "@/components/NavbarAuthButton/Nav";
 import { fontSans } from "@/config/fonts";
-import { Providers } from "./providers";
-import { Navbar } from "@/components/navbar";
-import { NextAuthProvider } from "./providers";
+import { siteConfig } from "@/config/site";
+import "@/styles/globals.css";
 import clsx from "clsx";
+import { Metadata } from "next";
+import { NextAuthProvider, Providers } from "./providers";
 
 export const metadata: Metadata = {
 	title: {
@@ -41,7 +41,7 @@ export default function RootLayout({
 				<Providers themeProps={{ attribute: "class", defaultTheme: "light" }}>
 					<div className="relative flex flex-col h-screen">
 					<NextAuthProvider>
-						<Navbar />
+						<Nav />
 						<main className="container mx-auto pt-16 px-6 flex-grow">
 								{children}
 						</main>

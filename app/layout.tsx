@@ -1,5 +1,5 @@
 // import { Navbar } from "@/components/NavbarAuthButton/navbar";
-import Nav from "@/components/NavbarAuthButton/Nav";
+import { Navbar } from "@/components/NavbarAuthButton/navbar";
 import { fontSans } from "@/config/fonts";
 import { siteConfig } from "@/config/site";
 import "@/styles/globals.css";
@@ -41,7 +41,7 @@ export default function RootLayout({
 				<Providers themeProps={{ attribute: "class", defaultTheme: "light" }}>
 					<div className="relative flex flex-col h-screen">
 					<NextAuthProvider>
-						<Nav />
+						<Navbar />
 						<main className="container mx-auto pt-16 px-6 flex-grow">
 								{children}
 						</main>

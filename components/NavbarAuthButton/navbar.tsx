@@ -19,11 +19,11 @@ import { ThemeSwitch } from "@/components/theme-switch";
 import { siteConfig } from "@/config/site";
 import clsx from "clsx";
 import NextLink from "next/link";
-// import AuthButton from "./AuthButton";
 import LogInButton from "./LoginButton";
 import { LogoutButton } from "./LogoutButton";
+import AuthButton from "./AuthButton";
 
-export const Navbar = ({ session }: { session: any }) => {
+export const Navbar = () => {
 
 	return (
 		<NextUINavbar maxWidth="xl" position="fixed">
@@ -67,11 +67,7 @@ export const Navbar = ({ session }: { session: any }) => {
 					<ThemeSwitch />
 				</NavbarItem>
 				<NavbarItem className="hidden md:flex">
-				{!session ? (
-					<LogInButton />
-				) :  (
-					<LogoutButton />
-				)}
+					<AuthButton />
 				</NavbarItem>
 			</NavbarContent>
 

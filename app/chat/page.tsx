@@ -1,8 +1,6 @@
 import ChatSelector from "@/components/ChatPageComponents/ChatSelector"
-import { getServerSession } from 'next-auth/next';
-export default async function Chat () {
-  const session = await getServerSession();
+export default function Chat () {
   return (
-    <ChatSelector session={session}/>
+    <ChatSelector />
   )
 }

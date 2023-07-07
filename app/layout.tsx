@@ -40,9 +40,10 @@ export default function RootLayout({
 			>
 				<Providers themeProps={{ attribute: "class", defaultTheme: "light" }}>
 					<NextAuthProvider>
-						<Navbar />
-						<div className="relative flex flex-col">
-								{children}
+						<div className="min-h-screen flex flex-col">
+							<Navbar />
+							
+									{children}
 						</div>
 					</NextAuthProvider>
 				</Providers>

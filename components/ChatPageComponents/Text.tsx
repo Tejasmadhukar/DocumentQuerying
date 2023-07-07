@@ -10,6 +10,8 @@ const TextMessage:FC<ChatMessageProps> = ({ Messages }) => {
     const session = useSession();
     const bottomRef = useRef<HTMLDivElement>(null)
 
+    const botImage = "https://img.freepik.com/free-vector/cute-robot-wearing-hat-flying-cartoon-vector-icon-illustration-science-technology-icon-isolated_138676-5186.jpg?w=1380&t=st=1688759864~exp=1688760464~hmac=42c7b731fbc68ac619351dc8e506083a8d19d06169b3a65f6c6b33e96034e504"
+
     useEffect(() => {
         bottomRef.current?.scrollIntoView({behavior: 'smooth'});
       }, [Messages]);

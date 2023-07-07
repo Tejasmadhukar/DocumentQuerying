@@ -6,9 +6,10 @@ import React, { useState } from "react";
 
 interface ChatInputProps {
     onSendMessage: (message: string) => void;
+    MessageLength: number;
 }
 
-const ChatInput: React.FC<ChatInputProps> = ({onSendMessage}) => {
+const ChatInput: React.FC<ChatInputProps> = ({onSendMessage, MessageLength}) => {
     const [message, setMessage] = useState('');
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,22 +26,43 @@ const ChatInput: React.FC<ChatInputProps> = ({onSendMessage}) => {
       
 
     return (
-        <div className="sticky bottom-1 z-20 bg-opacity-80 backdrop-filter backdrop-blur-md">
-            <form onSubmit={handleSubmit} className="mx-2 gap-3 last:mb-2 md:mx-auto md:last:mb-6 lg:mx-auto lg:max-w-2xl xl:max-w-3xl">
-                <Input 
-                    placeholder="Type your message here"
-                    color="default"
-                    onChange={handleChange}
-                    value={message}
-                    endContent={<Button
-                                    isIconOnly
-                                    variant="light"
-                                    type="submit"
-                                >
-                                    <SendIcon />
-                                </Button>}
-                />
-            </form>
+        <div className="sticky bottom-1  z-20 bg-opacity-80 backdrop-filter backdrop-blur-md">
+                {MessageLength <= 0 ? (
+                    <form onSubmit={handleSubmit} className="mx-2  cursor-not-allowed gap-3 last:mb-2 md:mx-auto md:last:mb-6 lg:mx-auto lg:max-w-2xl xl:max-w-3xl">
+                        <Input 
+                        isDisabled
+                        placeholder="Please upload files first"
+                        color="danger"
+                        onChange={handleChange}
+                        value={message}
+                        endContent={<Button
+                                        isIconOnly
+                                        variant="light"
+                                        type="submit"
+                                    >
+                                        <SendIcon />
+                                    </Button>}
+                        />
+                    </form>
+                ) : (
+                    <form onSubmit={handleSubmit} className="mx-2 gap-3 last:mb-2 md:mx-auto md:last:mb-6 lg:mx-auto lg:max-w-2xl xl:max-w-3xl">
+                        <Input 
+                        placeholder="Type your message here"
+                        color="default"
+                        onChange={handleChange}
+                        value={message}
+                        endContent={<Button
+                                        isIconOnly
+                                        variant="light"
+                                        type="submit"
+                                    >
+                                        <SendIcon />
+                                    </Button>}
+                        />
+                    </form>
+                )}
+                
+
         </div>
     )
 }

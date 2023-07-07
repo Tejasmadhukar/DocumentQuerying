@@ -39,17 +39,12 @@ export default function RootLayout({
 				)}
 			>
 				<Providers themeProps={{ attribute: "class", defaultTheme: "light" }}>
-					<div className="relative flex flex-col h-screen">
 					<NextAuthProvider>
 						<Navbar />
-						<main className="container mx-auto pt-16 px-6 flex-grow">
+						<div className="relative flex flex-col">
 								{children}
-						</main>
+						</div>
 					</NextAuthProvider>
-						<footer className="w-full flex items-center justify-center py-3">
-							
-						</footer>
-					</div>
 				</Providers>
 			</body>
 		</html>

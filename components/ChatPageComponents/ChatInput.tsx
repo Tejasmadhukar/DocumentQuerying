@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Input } from '@nextui-org/input';
 import { Button } from '@nextui-org/button';
+import { SendIcon } from '../icons';
+import { Textarea } from '@nextui-org/input';
 
 interface ChatInputProps {
   onSendMessage: (message: string) => void;
@@ -23,23 +25,12 @@ const ChatInput: React.FC<ChatInputProps> = ({onSendMessage}) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="flex items-center mt-4">
         <Input
           placeholder="Type your message..."
-          className="flex-grow rounded-l-lg py-2 px-1"
           onChange={handleChange}
           value={message}
         />
-        <Button
-          size='lg'
-          color="success" 
-          className="py-2 rounded-r-lg"
-        >
-          Send
-        </Button>
-
-
-      </div>
+   
     </form>
   );
 };

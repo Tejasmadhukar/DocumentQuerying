@@ -5,7 +5,9 @@ export default function ChatLayout({
 }) {
 	return (
         <>
-            {children}
+			<section className="flex  justify-center  h-screen mt-20">
+            	{children}
+			</section>
         </>
 	);
 }

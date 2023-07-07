@@ -1,11 +1,17 @@
 import { Avatar } from "@nextui-org/react";
-import { FC } from "react";
+import { FC, useEffect, useRef } from "react";
 
 interface ChatMessageProps {
     Messages: string[];
 }
 
 const TextMessage:FC<ChatMessageProps> = ({ Messages }) => {
+    const bottomRef = useRef<HTMLDivElement>(null)
+
+    useEffect(() => {
+        bottomRef.current?.scrollIntoView({behavior: 'smooth'});
+      }, [Messages]);
+
     return (
         <>
             <div className="flex-1 overflow-y-auto">
@@ -22,6 +28,7 @@ const TextMessage:FC<ChatMessageProps> = ({ Messages }) => {
                         </div>
                     </>
                 ))}
+                <div ref={bottomRef} />
             </div>
         </>
     )

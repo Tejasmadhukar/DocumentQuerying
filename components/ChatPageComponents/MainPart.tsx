@@ -2,8 +2,9 @@
 import { useState } from "react";
 import ChatInput from "./ChatInput";
 import TextMessage from "./Text";
+
 export default function Chat() {
-    const [messages, setMessages] = useState<string[]>([]);
+    const [messages, setMessages] = useState<string[]>(['h1','test 1','test 2']);
 
     const handleSendMessage = (message: string) => {
       setMessages((prevMessages) => [...prevMessages, message]);
@@ -11,12 +12,16 @@ export default function Chat() {
     
     return (
         <>
-            <div className=" w-3/4 flex flex-col message group and chat input">
-                <TextMessage />
+            <div className="flex flex-col h-screen message group">
+                {messages.length <= 0 ? (
+                    <>
+                    </>
+                ) : (
+                    <TextMessage Messages={messages}/>
+                )}
+                
                 <ChatInput onSendMessage={handleSendMessage}/>
             </div>
-
-            
         </>
     )
 }

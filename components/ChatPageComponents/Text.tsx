@@ -13,7 +13,7 @@ const TextMessage:FC<ChatMessageProps> = ({ Messages }) => {
     useEffect(() => {
         bottomRef.current?.scrollIntoView({behavior: 'smooth'});
       }, [Messages]);
-7
+
     return (
         <>
             <div className="flex-1 overflow-y-auto">

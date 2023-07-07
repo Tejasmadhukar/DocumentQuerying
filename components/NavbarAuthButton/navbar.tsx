@@ -1,4 +1,3 @@
-'use client';
 import { Link } from "@nextui-org/link";
 import {
     NavbarBrand,
@@ -19,8 +18,6 @@ import { ThemeSwitch } from "@/components/theme-switch";
 import { siteConfig } from "@/config/site";
 import clsx from "clsx";
 import NextLink from "next/link";
-import LogInButton from "./LoginButton";
-import { LogoutButton } from "./LogoutButton";
 import AuthButton from "./AuthButton";
 
 export const Navbar = () => {
@@ -31,7 +28,7 @@ export const Navbar = () => {
 				<NavbarBrand as="li" className="gap-3 max-w-fit">
 					<NextLink className="flex justify-start items-center gap-1" href="/">
 						<Logo />
-						<p className="font-bold text-inherit">Name</p>
+						<p className="font-bold text-inherit">Home</p>
 					</NextLink>
 				</NavbarBrand>
 				<ul className="hidden lg:flex gap-4 justify-start ml-2">
@@ -80,23 +77,17 @@ export const Navbar = () => {
 					{siteConfig.navMenuItems.map((item, index) => (
 						<NavbarMenuItem key={`${item}-${index}`}>
 							<Link
-								color={
-									index === 2
-										? "primary"
-										: index === siteConfig.navMenuItems.length - 1
-										? "danger"
-										: "foreground"
-								}
-								href="#"
+								color="foreground"
+								href={item.href}
 								size="lg"
 							>
 								{item.label}
 							</Link>
 						</NavbarMenuItem>
 					))}
-				{/* <NavbarItem>
+				<NavbarItem>
 					<AuthButton />
-				</NavbarItem> */}
+				</NavbarItem>
 				</div>
 			</NavbarMenu>
 		</NextUINavbar>

@@ -22,7 +22,7 @@ const Upload:FC<ChatMessageProps> = ({onSendMessage}) => {
         try {
             const formData = new FormData();
             formData.append("file", file);
-            const response = await axios.post('http://localhost:80/upload',formData)
+            const response = await axios.post('https://backend-test-58bq.onrender.com/upload',formData)
             return response
         } catch (error) {
             console.log(error);

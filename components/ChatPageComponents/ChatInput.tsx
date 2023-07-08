@@ -21,7 +21,7 @@ const ChatInput: React.FC<ChatInputProps> = ({onSendMessage, MessageLength, Load
 
     const FetchResponse = async (query: string) : Promise<string> => {
         try {
-            const response = await axios.post('http://localhost:80/run', { message: query }, { headers: { 'Content-Type': 'application/json' } });
+            const response = await axios.post('https://backend-test-58bq.onrender.com/run', { message: query }, { headers: { 'Content-Type': 'application/json' } });
             console.log(response)
             return response.data;
         } catch (error) {

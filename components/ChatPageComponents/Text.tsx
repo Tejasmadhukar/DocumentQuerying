@@ -29,7 +29,7 @@ const TextMessage:FC<ChatMessageProps> = ({ Messages }) => {
                                     <div className="flex-shrink-0 flex flex-col relative items-end">
                                         <Avatar radius="md" name="Bot" src={botImage} />
                                     </div>
-                                    {typeof message.message !== 'string' ? <> <Spacer y={10}/> <Progress style={{width: '200px'}}  className="w-8" size="sm" isIndeterminate color="secondary"/> </> : <p>{message.message}</p>}
+                                    {typeof message.message !== 'string' ? <> <Progress style={{width: '200px'}}  className="w-8" size="sm" isIndeterminate color="secondary"/> </> : <p>{message.message}</p>}
                                 </div>
                             </div>
                         ) : (

@@ -4,9 +4,10 @@ import axios from "axios"
 import { FC, useRef, useState } from "react"
 import { FileIcon } from "../icons"
 import { title } from "../primitives"
+import { MessageGroup } from "@/types"
 
 interface ChatMessageProps {
-    onSendMessage: (message: string) => void;
+    onSendMessage: (message: MessageGroup) => void;
 }
 
 const Upload:FC<ChatMessageProps> = ({onSendMessage}) => {
@@ -24,7 +25,8 @@ const Upload:FC<ChatMessageProps> = ({onSendMessage}) => {
             const response = await axios.post('http://localhost:80/upload',formData)
             return response
         } catch (error) {
-            console.log(error) ;
+            console.log(error);
+            throw error;
         }
     }
 
@@ -32,8 +34,8 @@ const Upload:FC<ChatMessageProps> = ({onSendMessage}) => {
         if(event.target.files) {
             setLoading(true);
             Handleupload(event.target.files[0]).then(()=>{
-                onSendMessage('Embeddings Done !!');
-                onSendMessage('Now you can ask me any question from your document that you would like !!')
+                onSendMessage({message:'Embeddings Done !!', user:'bot'});
+                onSendMessage({message:'Now you can ask me any question from your document that you would like !!', user:'bot'})
             }).catch((Error)=>alert(Error)).finally(()=>setLoading(false))
         }
     }

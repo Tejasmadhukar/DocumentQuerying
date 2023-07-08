@@ -1,16 +1,30 @@
 'use client'
+import { MessageGroup } from "@/types";
 import { useState } from "react";
 import ChatInput from "./ChatInput";
 import TextMessage from "./Text";
 import Upload from "./Welcome";
 
-export default function Chat() {
-    // const [messages, setMessages] = useState<string[]>(['Embeddings Done', 'Ask any questoin from the document that you want']);
-    const [messages, setMessages] = useState<string[]>([]);
 
-    const handleSendMessage = (message: string) => {
+
+export default function Chat() {
+    const [messages, setMessages] = useState<MessageGroup[]>([]);
+    
+    const handleSendMessage = (message: MessageGroup) => {
       setMessages((prevMessages) => [...prevMessages, message]);
     };
+
+    const SetLoading = (key: boolean) => {
+        if(key){
+            handleSendMessage({message: 1, user: 'bot'})
+        }else{
+            setMessages((prevMessages) => {
+                const updatedMessages = [...prevMessages];
+                updatedMessages.pop(); 
+                return updatedMessages;
+              });
+        }
+    }
     
     return (
         <>
@@ -21,7 +35,7 @@ export default function Chat() {
                     <TextMessage Messages={messages}/>
                 )}
 
-                <ChatInput onSendMessage={handleSendMessage} MessageLength={messages.length}/>
+                <ChatInput onSendMessage={handleSendMessage} MessageLength={messages.length} Loading={SetLoading}/>
             </div>
         </>
     )

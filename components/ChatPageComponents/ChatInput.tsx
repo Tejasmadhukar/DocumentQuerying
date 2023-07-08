@@ -26,7 +26,7 @@ const ChatInput: React.FC<ChatInputProps> = ({onSendMessage, MessageLength}) => 
       
 
     return (
-        <div className="sticky bottom-1  z-20 bg-opacity-80 backdrop-filter backdrop-blur-md">
+        <div className="sticky bottom-1 z-20 bg-opacity-80 backdrop-filter backdrop-blur-md">
                 {MessageLength <= 0 ? (
                     <form onSubmit={handleSubmit} className="mx-2  cursor-not-allowed gap-3 last:mb-2 md:mx-auto md:last:mb-6 lg:mx-auto lg:max-w-2xl xl:max-w-3xl">
                         <Input 

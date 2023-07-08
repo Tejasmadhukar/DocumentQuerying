@@ -1,8 +1,8 @@
 "use client"
-import NotAllowedChat from "@/components/ChatPageComponents/UnAuthenticatedChat";
 import AllowedChatPage from "@/components/ChatPageComponents/AuthenticatedChat";
+import NotAllowedChat from "@/components/ChatPageComponents/UnAuthenticatedChat";
+import { Spinner } from "@nextui-org/react";
 import { useSession } from "next-auth/react";
-import { Spacer, Spinner } from "@nextui-org/react";
 export default function ChatSelector() {
     const session = useSession();
     return (

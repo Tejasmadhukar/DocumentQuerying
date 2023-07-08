@@ -5,7 +5,9 @@ export default function ChatLayout({
 }) {
 	return (
         <>
-            {children}
+			<div className="pt-16 min-h-screen">
+				{children}
+			</div>
         </>
 	);
 }

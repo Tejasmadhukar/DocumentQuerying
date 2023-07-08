@@ -1,47 +1,88 @@
-import React, { useState } from 'react';
-import { Input } from '@nextui-org/input';
-import { Button } from '@nextui-org/button';
+'use client'
+import { MessageGroup } from "@/types";
+import { Button } from "@nextui-org/button";
+import { Input } from "@nextui-org/input";
+import React, { useState } from "react";
+import { SendIcon } from "../icons";
+import axios from "axios";
 
 interface ChatInputProps {
-  onSendMessage: (message: string) => void;
+    onSendMessage: (message: MessageGroup) => void;
+    MessageLength: number;
+    Loading : (key: boolean) => void;
 }
 
-const ChatInput: React.FC<ChatInputProps> = ({onSendMessage}) => {
-  const [message, setMessage] = useState('');
+const ChatInput: React.FC<ChatInputProps> = ({onSendMessage, MessageLength, Loading}) => {
+    const [message, setMessage] = useState('');
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setMessage(event.target.value);
-  };
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setMessage(event.target.value);
+    };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    if (message.trim() !== '') {
-      onSendMessage(message);
-      setMessage('');
+    const FetchResponse = async (query: string) : Promise<string> => {
+        try {
+            const response = await axios.post('https://backend-test-58bq.onrender.com/run', { message: query }, { headers: { 'Content-Type': 'application/json' } });
+            console.log(response)
+            return response.data;
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
     }
-  };
+    
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        if (message.trim() !== '') {
+            onSendMessage({message, user: 'human'});
+            setMessage('');
+            Loading(true);
+            FetchResponse(message).then((data)=>{
+                Loading(false);
+                onSendMessage({message: data, user: 'bot'});
+            }).catch((Error)=>alert(Error));
+        }
+    };
+      
+    return (
+        <div className="sticky bottom-1 z-20 bg-opacity-80 backdrop-filter backdrop-blur-md">
+                {MessageLength <= 0 ? (
+                    <form onSubmit={handleSubmit} className="mx-2  cursor-not-allowed gap-3 last:mb-2 md:mx-auto md:last:mb-6 lg:mx-auto lg:max-w-2xl xl:max-w-3xl">
+                        <Input 
+                        isDisabled
+                        placeholder="Please upload files first"
+                        color="danger"
+                        onChange={handleChange}
+                        value={message}
+                        endContent={<Button
+                                        isIconOnly
+                                        variant="light"
+                                        type="submit"
+                                    >
+                                        <SendIcon />
+                                    </Button>}
+                        />
+                    </form>
+                ) : (
+                    <form onSubmit={handleSubmit} className="mx-2 gap-3 last:mb-2 md:mx-auto md:last:mb-6 lg:mx-auto lg:max-w-2xl xl:max-w-3xl">
+                        <Input 
+                        placeholder="Type your message here"
+                        color="default"
+                        onChange={handleChange}
+                        value={message}
+                        endContent={<Button
+                                        isIconOnly
+                                        variant="light"
+                                        type="submit"
+                                    >
+                                        <SendIcon />
+                                    </Button>}
+                        />
+                    </form>
+                )}
+                
 
-  return (
-    <form onSubmit={handleSubmit}>
-      <div className="flex items-center mt-4">
-        <Input
-          placeholder="Type your message..."
-          className="flex-grow rounded-l-lg py-2 px-1"
-          onChange={handleChange}
-          value={message}
-        />
-        <Button
-          size='lg'
-          color="success" 
-          className="py-2 rounded-r-lg"
-        >
-          Send
-        </Button>
-
-
-      </div>
-    </form>
-  );
-};
+        </div>
+    )
+}
 
 export default ChatInput;

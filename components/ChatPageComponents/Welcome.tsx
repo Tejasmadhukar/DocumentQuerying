@@ -1,8 +1,9 @@
 'use client'
 import { Button, Spacer } from "@nextui-org/react"
-import { title } from "../primitives"
-import { FileIcon } from "../icons"
+import axios from "axios"
 import { FC, useRef, useState } from "react"
+import { FileIcon } from "../icons"
+import { title } from "../primitives"
 
 interface ChatMessageProps {
     onSendMessage: (message: string) => void;
@@ -10,24 +11,31 @@ interface ChatMessageProps {
 
 const Upload:FC<ChatMessageProps> = ({onSendMessage}) => {
     const hiddenFileInput = useRef<HTMLInputElement>(null);
-    const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const [Loading,setLoading] = useState(false);
 
     const Handleclick = () => {
         hiddenFileInput.current?.click();
     }
 
-    const HandleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        if(event.target.files) {
-            setSelectedFile(event.target.files[0]);
-            Handleupload().then(()=>{
-                onSendMessage('Embeddings Done !!');
-                onSendMessage('Now you can ask me any question from your document that you would like !!')
-            });
+    const Handleupload = async (file: File): Promise<any> =>{
+        try {
+            const formData = new FormData();
+            formData.append("file", file);
+            const response = await axios.post('http://localhost:80/upload',formData)
+            return response
+        } catch (error) {
+            console.log(error) ;
         }
     }
 
-    const Handleupload = async () =>{
-
+    const HandleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if(event.target.files) {
+            setLoading(true);
+            Handleupload(event.target.files[0]).then(()=>{
+                onSendMessage('Embeddings Done !!');
+                onSendMessage('Now you can ask me any question from your document that you would like !!')
+            }).catch((Error)=>alert(Error)).finally(()=>setLoading(false))
+        }
     }
 
     return (
@@ -38,7 +46,7 @@ const Upload:FC<ChatMessageProps> = ({onSendMessage}) => {
                     <h1 className={title()}>your files here&nbsp;</h1>
                 </div>
                 <Spacer y={10}/>
-                <Button onPress={Handleclick} className="" variant="bordered" color="secondary" endContent={<FileIcon />}>Upload</Button>
+                <Button onPress={Handleclick} isLoading={Loading} className="" variant="bordered" color="secondary" endContent={<FileIcon />}>Upload</Button>
                 <input type="file" onChange={HandleInputChange} ref={hiddenFileInput} multiple style={{display:'none'}} className="mt-3 border-0" />
             </section>
             

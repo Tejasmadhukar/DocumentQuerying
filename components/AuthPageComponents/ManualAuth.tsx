@@ -2,24 +2,23 @@
 import { EyeFilledIcon, EyeSlashFilledIcon } from "@/components/icons";
 import { title } from "@/components/primitives";
 import { Input } from "@nextui-org/input";
-import { Button, Divider, Link, Spacer, Tab, Tabs, Progress } from "@nextui-org/react";
+import { Button, Divider, Link, Progress, Spacer, Tab, Tabs } from "@nextui-org/react";
+import { useRouter } from "next/navigation";
 import { Key, useMemo, useState } from "react";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
 
 interface LoginFormType{
     email: string,
     password: string
 }
 
-interface SignupFormType {
+interface SignupFormType extends LoginFormType{
     name: string,
-    email: string,
-    password: string
 }
 
 export default function ManualAuth() {
     const router = useRouter();
+
     const [InputValue, setInputValue] = useState("");
     const [PasswordValue, setPasswordValue] = useState("");
     const [Name,setName] = useState("");
@@ -50,7 +49,6 @@ export default function ManualAuth() {
 
         if(signInResponse && !signInResponse.error){
             router.push('/chat')
-            router.refresh();
         }else{
             console.log("Error: ", signInResponse);
             setMessage("Invalid Username or Password");
@@ -61,21 +59,19 @@ export default function ManualAuth() {
         const name = data.name;
         const email = data.email;
         const password = data.password;
-
+    
         const Signup:SignupFormType = {
             name, email, password
         }
-
         setMessage("Loading");
-
         try {
-            const response = await fetch('/auth/api/signup', {
+            const response:any = await fetch('/auth/api/signup', {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify(Signup),
-            })
+            });
             const res = await response.json();
             if(response.ok){
                 setMessage("Signup Successful. Please Login!"); 
@@ -93,7 +89,7 @@ export default function ManualAuth() {
     return (
         <>
             <h1 className={title()}>Auth</h1>
-            <Spacer y={2}/>
+            <Spacer y={4}/>
             {message=="Loading" ? (
                 <Progress
                     size="xs"

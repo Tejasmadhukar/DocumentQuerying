@@ -1,5 +1,5 @@
 import { prisma } from "@/config/db";
-import encryptPassword from "@/config/hash";
+import { encryptPassword } from "@/config/encryption";
 import { NextResponse } from "next/server";
 
 interface SignUpType{

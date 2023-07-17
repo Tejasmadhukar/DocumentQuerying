@@ -3,7 +3,7 @@ import { NextAuthOptions } from "next-auth";
 import CredentialsProvider  from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google"
 
-import Compare from "./compare";
+import { Compare } from "./encryption";
 import { prisma } from "./db";
 
 interface User{

@@ -1,10 +1,9 @@
-'use client'
+import { MessageGroup } from "@/types"
 import { Button, Spacer } from "@nextui-org/react"
 import axios from "axios"
 import { FC, useRef, useState } from "react"
 import { FileIcon } from "../icons"
 import { title } from "../primitives"
-import { MessageGroup } from "@/types"
 
 interface ChatMessageProps {
     onSendMessage: (message: MessageGroup) => void;

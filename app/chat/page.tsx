@@ -1,5 +1,5 @@
-import AllowedChatPage from "@/components/ChatPageComponents/AuthenticatedChat";
-import NotAllowedChat from "@/components/ChatPageComponents/UnAuthenticatedChat";
+import AllowedChatPage from "@/components/ChatPageComponents/AllowedChat";
+import NotAllowedChat from "@/components/ChatPageComponents/NotAllowedChat";
 import { authConfig } from "@/config/auth";
 import { getServerSession } from "next-auth";
 

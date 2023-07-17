@@ -1,8 +1,7 @@
-import { Avatar, Spacer } from "@nextui-org/react";
-import { FC, useEffect, useRef } from "react";
-import { useSession } from "next-auth/react";
 import { MessageGroup } from "@/types";
-import { Progress } from "@nextui-org/react";
+import { Avatar, Progress } from "@nextui-org/react";
+import { useSession } from "next-auth/react";
+import { FC, useEffect, useRef } from "react";
 
 interface ChatMessageProps {
     Messages: MessageGroup[];

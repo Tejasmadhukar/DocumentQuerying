@@ -1,5 +1,5 @@
-import ContinueWithGoogleButton from "@/components/AuthPageComponents/ContinueWithGoogle"
-import ManualAuth from "@/components/AuthPageComponents/ManualAuth"
+import ContinueWithGoogleButton from "@/components/Auth/ContinueWithGoogle"
+import ManualAuth from "@/components/Auth/ManualAuth"
 import { authConfig } from "@/config/auth"
 import { getServerSession } from "next-auth"
 import { redirect } from "next/navigation"

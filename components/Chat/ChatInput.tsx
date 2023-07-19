@@ -1,3 +1,4 @@
+'use client'
 import { MessageGroup } from "@/types";
 import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";

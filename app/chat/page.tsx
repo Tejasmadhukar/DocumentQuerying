@@ -1,10 +1,8 @@
-import ChatPage from "@/components/Chat/Chat"
-
-export default function Chat () {
+export default function Chat() {
 
     return (
         <>
-            <ChatPage />
+            <h1>Upload page goes here </h1>
         </>
     )
 }

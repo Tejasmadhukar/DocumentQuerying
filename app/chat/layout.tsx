@@ -3,7 +3,7 @@ import { getServerSession } from "next-auth";
 
 export default async function ChatLayout(props: {
 	children: React.ReactNode,
-	NotAllowed: React.ReactNode
+	NotAllowed: React.ReactNode,
 }) {
 	const session = await getServerSession(authConfig);
 

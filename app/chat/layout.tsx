@@ -1,22 +1,26 @@
-import NotAllowedChat from "@/components/Chat/NotAllowedChat";
 import { authConfig } from "@/config/auth";
 import { getServerSession } from "next-auth";
 
-export default async function ChatLayout({children,} : {children: React.ReactNode}) {
+export default async function ChatLayout(props: {
+	children: React.ReactNode,
+	NotAllowed: React.ReactNode
+}) {
 	const session = await getServerSession(authConfig);
 
 	if (!session) {
 		return (
-			<div className="pt-16 min-h-screen">
-				<NotAllowedChat />
-			</div>
+			<>
+				<div className="pt-16 min-h-screen">
+					{props.NotAllowed}
+				</div>
+			</>
 		)
 	  }
 
 	return (
         <>
 			<div className="pt-16 min-h-screen">
-				{children}
+				{props.children}
 			</div>
         </>
 	);

@@ -1,19 +1,10 @@
-import AllowedChatPage from "@/components/Chat/AllowedChat";
-import NotAllowedChat from "@/components/Chat/NotAllowedChat";
-import { authConfig } from "@/config/auth";
-import { getServerSession } from "next-auth";
+import ChatPage from "@/components/Chat/Chat"
 
-export default async function Chat () {
-  const session = await getServerSession(authConfig);
+export default function Chat () {
 
     return (
         <>
-        {session ? (
-            <AllowedChatPage />
-        ) : (
-            <NotAllowedChat />
-        )}
-  
+            <ChatPage />
         </>
     )
 }

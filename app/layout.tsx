@@ -1,4 +1,3 @@
-// import { Navbar } from "@/components/NavbarAuthButton/navbar";
 import { Navbar } from "@/components/Navbar/navbar";
 import { fontSans } from "@/config/fonts";
 import { siteConfig } from "@/config/site";

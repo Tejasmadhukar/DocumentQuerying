@@ -1,10 +1,7 @@
-import Chat from "./MainPart";
-
+import Chat from "./Chat";
 const AllowedChatPage = () => {
  return (
-    <>
-        <Chat />
-    </>
+      <Chat />
   );
 };
 

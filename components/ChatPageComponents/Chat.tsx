@@ -3,9 +3,7 @@ import { MessageGroup } from "@/types";
 import { useState } from "react";
 import ChatInput from "./ChatInput";
 import TextMessage from "./Text";
-import Upload from "./Welcome";
-
-
+import Upload from "./Upload";
 
 export default function Chat() {
     const [messages, setMessages] = useState<MessageGroup[]>([]);

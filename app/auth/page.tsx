@@ -13,7 +13,7 @@ export default async function Auth() {
 
     return (
         <>
-            <h1 className={clsx(title(),"mb-6")}>Auth</h1>
+            <h1 className={clsx(title(),"mb-8")}>Auth</h1>
             <AuthForm />
             <h1 className="text-2xl font-bold mb-6">OR</h1>
             <ContinueWithGoogleButton />

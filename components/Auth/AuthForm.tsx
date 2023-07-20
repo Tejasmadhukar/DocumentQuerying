@@ -85,8 +85,24 @@ export default function AuthForm () {
 
     return (
         <>
+        <div className=" my-4">
+            {message=="Loading" ? (
+                <Progress
+                    size="xs"
+                    isIndeterminate
+                    aria-label="Loading..."
+                    className="max-w-md"
+                />
+            ) : (
+                message=="Signup Successful. Please Login!" ? (
+                    <p className="text-center text-green-500">{message}</p>
+                ) : (
+                <p className="text-center text-red-500">{message}</p>
+                )
+            )}
+        </div>
          <Tabs
-                className="  mt-14"
+                className="mt-2"
                 fullWidth
                 size="sm"
                 aria-label="Tabs form"

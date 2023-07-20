@@ -4,7 +4,7 @@ import { siteConfig } from "@/config/site";
 import "@/styles/globals.css";
 import clsx from "clsx";
 import { Metadata } from "next";
-import { NextAuthProvider, Providers } from "./providers";
+import { Providers } from "./providers";
 
 export const metadata: Metadata = {
 	title: {
@@ -38,13 +38,10 @@ export default function RootLayout({
 				)}
 			>
 				<Providers themeProps={{ attribute: "class", defaultTheme: "light" }}>
-					<NextAuthProvider>
-						<div className="min-h-screen flex flex-col">
-							<Navbar />
-							
-									{children}
-						</div>
-					</NextAuthProvider>
+					<div className="min-h-screen flex flex-col">
+						<Navbar />
+						{children}
+					</div>
 				</Providers>
 			</body>
 		</html>

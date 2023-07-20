@@ -1,6 +1,7 @@
 import { authConfig } from "@/config/auth";
 import { getServerSession } from "next-auth";
 import NotAllowedChat from "@/components/Chat/NotAllowedChat";
+import Sidebar from "@/components/Chat/Sidebar";
 
 export default async function ChatLayout(props: {
 	children: React.ReactNode,
@@ -19,8 +20,8 @@ export default async function ChatLayout(props: {
 
 	return (
         <>
-			<div className="pt-16 min-h-screen">
-				<h1>sidebar</h1>
+			<div className="pt-16 min-h-screen flex">
+				<Sidebar />
 				{props.children}
 			</div>
         </>

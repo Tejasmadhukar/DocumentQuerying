@@ -5,7 +5,7 @@ import { prisma } from "@/config/db";
 // import { PlusIcon } from "../icons"; Reduce size of this icon so it looks nice 
 
 
-export default async function Sidebar() {
+export default function Sidebar() {
     return (
         <>
             <div className="w-1/6 flex flex-col items-center">

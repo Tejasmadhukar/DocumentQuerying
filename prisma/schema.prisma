@@ -18,7 +18,6 @@ model Message {
 
 model MessageGroup {
   groupID             Int       @id @default(autoincrement())
-  pinecone_embeddings String    @db.VarChar(255)
   userID              Int
   Title               String
   Message             Message[]

@@ -1,10 +1,9 @@
 "use client"
-import { EyeFilledIcon, EyeSlashFilledIcon } from "@/components/icons";
-import { title } from "@/components/primitives";
-import { Input } from "@nextui-org/input";
-import { Button, Divider, Link, Progress, Spacer, Tab, Tabs } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
-import { Key, useMemo, useState } from "react";
+import { Key, useMemo, useState,Suspense } from "react";
+import { Button, Divider, Link, Progress, Spacer, Tab, Tabs } from "@nextui-org/react";
+import { Input } from "@nextui-org/input";
+import { EyeFilledIcon, EyeSlashFilledIcon } from "@/components/icons";
 import { signIn } from "next-auth/react";
 
 interface LoginFormType{
@@ -16,7 +15,7 @@ interface SignupFormType extends LoginFormType{
     name: string,
 }
 
-export default function ManualAuth() {
+export default function AuthForm () {
     const router = useRouter();
 
     const [InputValue, setInputValue] = useState("");
@@ -27,12 +26,11 @@ export default function ManualAuth() {
     const [message, setMessage] = useState<string | null>(null)
 
     const toggleVisibility = () => setIsVisible(!isVisible);
-
     const validateEmail = (InputValue:string) => InputValue.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}$/i);
-  
+
     const validationState = useMemo(() => {
-      if (InputValue === "") return undefined;
-      return validateEmail(InputValue) ? "valid" : "invalid";
+        if (InputValue === "") return undefined;
+        return validateEmail(InputValue) ? "valid" : "invalid";
     }, [InputValue]);
 
     async function HandleLogin(data:LoginFormType) {
@@ -85,27 +83,10 @@ export default function ManualAuth() {
         }
     }
 
-
     return (
         <>
-            <h1 className={title()}>Auth</h1>
-            <Spacer y={4}/>
-            {message=="Loading" ? (
-                <Progress
-                    size="xs"
-                    isIndeterminate
-                    aria-label="Loading..."
-                    className="max-w-md"
-                />
-            ) : (
-                message=="Signup Successful. Please Login!" ? (
-                    <p className="text-center text-green-500 mt-2">{message}</p>
-                ) : (
-                <p className="text-center text-red-500 mt-2">{message}</p>
-                )
-            )}
-            <Spacer y={8} />
-            <Tabs
+         <Tabs
+                className="  mt-14"
                 fullWidth
                 size="sm"
                 aria-label="Tabs form"
@@ -209,9 +190,6 @@ export default function ManualAuth() {
                 </Tab>
             </Tabs>
             <Divider />
-            <Spacer />
-            <h1 className="text-2xl font-bold">OR</h1>
-            <Spacer y={3}/>
         </>
     )
 }

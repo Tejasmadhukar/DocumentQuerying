@@ -20,6 +20,7 @@ export default async function ChatLayout(props: {
 	return (
         <>
 			<div className="pt-16 min-h-screen">
+				<h1>sidebar</h1>
 				{props.children}
 			</div>
         </>

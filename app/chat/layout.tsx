@@ -21,7 +21,7 @@ export default async function ChatLayout(props: {
 	return (
         <>
 			<div className="pt-16 min-h-screen flex">
-				<Sidebar />
+				<Sidebar session={session}/>
 				{props.children}
 			</div>
         </>

@@ -1,3 +1,2 @@
-# Pinecone Frontend
-
-frontend for hackathon, it has 3 pages in it
+### Document Querying
+sample docker-compose only meant for dev

@@ -1,0 +1,14 @@
+Flask
+flask-cors
+llama-index
+langchain
+openai
+pypdf
+google-search-results
+huggingface_hub
+bs4
+python-dotenv
+torch 
+transformers 
+sentencepiece 
+Pillow

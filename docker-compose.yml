@@ -1,6 +1,14 @@
 version: '3.8'
 
 services:
+  nextjs-app:
+    build: ./NextJsApp
+    ports:
+      - 3000:3000
+    volumes:
+      - ./NextJsApp:/home/node/app
+    depends_on:
+      - python-service
   python-service:
     build: ./PythonMicroservice
     ports:

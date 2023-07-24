@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  python-service:
+    build: ./PythonMicroservice
+    ports:
+      - 80:80
+    volumes:
+      - ./PythonMicroservice:/app

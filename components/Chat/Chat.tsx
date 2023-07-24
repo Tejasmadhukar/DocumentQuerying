@@ -5,7 +5,7 @@ import ChatInput from "./ChatInput";
 import TextMessage from "./Text";
 import Upload from "./Upload";
 
-export default function Chat() {
+export default function ChatPage() {
     const [messages, setMessages] = useState<MessageGroup[]>([]);
     
     const handleSendMessage = (message: MessageGroup) => {

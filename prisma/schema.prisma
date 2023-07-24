@@ -8,27 +8,66 @@ datasource db {
 }
 
 model Message {
-  messageID       Int          @id @default(autoincrement())
+  id              String       @id @default(cuid())
   created_by      String
   content_message String
-  groupID         Int
+  groupId         String
   updated_at      DateTime     @default(now())
-  MessageGroup    MessageGroup @relation(fields: [groupID], references: [groupID])
+  MessageGroup    MessageGroup @relation(fields: [groupId], references: [id], onDelete: Cascade)
 }
 
 model MessageGroup {
-  groupID             Int       @id @default(autoincrement())
-  pinecone_embeddings String    @db.VarChar(255)
-  userID              Int
+  id                  String       @id @default(cuid())
+  userId              String
   Title               String
   Message             Message[]
-  User                User      @relation(fields: [userID], references: [userID])
+  user                User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model User {
-  userID       Int            @id @default(autoincrement())
-  email        String         @unique @db.VarChar(255)
-  name         String         @db.VarChar(255)
-  password     String         @db.VarChar(255)
-  MessageGroup MessageGroup[]
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  password      String?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  MessageGroup  MessageGroup[]
+}
+
+
+model Account {
+  id                 String  @id @default(cuid())
+  userId             String
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String?  @db.Text
+  access_token       String?  @db.Text
+  expires_at         Int?
+  token_type         String?
+  refresh_token_expires_in Float?
+  scope              String?
+  id_token           String?  @db.Text
+  session_state      String?
+  user               User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
 }

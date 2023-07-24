@@ -1,19 +1,10 @@
-import AllowedChatPage from "@/components/ChatPageComponents/AllowedChat";
-import NotAllowedChat from "@/components/ChatPageComponents/NotAllowedChat";
-import { authConfig } from "@/config/auth";
-import { getServerSession } from "next-auth";
-
-export default async function Chat () {
-  const session = await getServerSession(authConfig);
+import Link from "next/link"
+export default function Chat() {
 
     return (
         <>
-        {session ? (
-            <AllowedChatPage />
-        ) : (
-            <NotAllowedChat />
-        )}
-  
+            <h1>Upload page goes here </h1>
+            <Link href={'/chat/1'}>nknk</Link>
         </>
     )
 }

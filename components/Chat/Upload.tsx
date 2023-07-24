@@ -1,6 +1,5 @@
 import { MessageGroup } from "@/types"
 import { Button, Spacer } from "@nextui-org/react"
-import axios from "axios"
 import { FC, useRef, useState } from "react"
 import { FileIcon } from "../icons"
 import { title } from "../primitives"
@@ -18,15 +17,15 @@ const Upload:FC<ChatMessageProps> = ({onSendMessage}) => {
     }
 
     const Handleupload = async (file: File): Promise<any> =>{
-        try {
-            const formData = new FormData();
-            formData.append("file", file);
-            const response = await axios.post('https://backend-test-58bq.onrender.com/upload',formData)
-            return response
-        } catch (error) {
-            console.log(error);
-            throw error;
-        }
+        // try {
+        //     const formData = new FormData();
+        //     formData.append("file", file);
+        //     const response = await axios.post('https://backend-test-58bq.onrender.com/upload',formData)
+        //     return response
+        // } catch (error) {
+        //     console.log(error);
+        //     throw error;
+        // }
     }
 
     const HandleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {

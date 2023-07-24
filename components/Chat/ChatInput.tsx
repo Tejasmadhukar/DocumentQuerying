@@ -1,7 +1,7 @@
+'use client'
 import { MessageGroup } from "@/types";
 import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
-import axios from "axios";
 import React, { useState } from "react";
 import { SendIcon } from "../icons";
 
@@ -18,15 +18,15 @@ const ChatInput: React.FC<ChatInputProps> = ({onSendMessage, MessageLength, Load
         setMessage(event.target.value);
     };
 
-    const FetchResponse = async (query: string) : Promise<string> => {
-        try {
-            const response = await axios.post('https://backend-test-58bq.onrender.com/run', { message: query }, { headers: { 'Content-Type': 'application/json' } });
-            console.log(response)
-            return response.data;
-        } catch (error) {
-            console.log(error);
-            throw error;
-        }
+    const FetchResponse = async (query: string)  => {
+        // try {
+        //     const response = await axios.post('https://backend-test-58bq.onrender.com/run', { message: query }, { headers: { 'Content-Type': 'application/json' } });
+        //     console.log(response)
+        //     return response.data;
+        // } catch (error) {
+        //     console.log(error);
+        //     throw error;
+        // }
     }
     
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -36,8 +36,8 @@ const ChatInput: React.FC<ChatInputProps> = ({onSendMessage, MessageLength, Load
             setMessage('');
             Loading(true);
             FetchResponse(message).then((data)=>{
-                Loading(false);
-                onSendMessage({message: data, user: 'bot'});
+                // Loading(false);
+                // onSendMessage({message: data, user: 'bot'});
             }).catch((Error)=>alert(Error));
         }
     };

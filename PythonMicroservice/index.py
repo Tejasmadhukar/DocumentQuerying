@@ -1,13 +1,14 @@
 from flask import Flask,request, jsonify, Response
 from flask_cors import CORS
+from agent import MakeEmbeddings
 import os
 import subprocess
 
 app = Flask(__name__)
 CORS(app)
 
-def generate_output(message):
-    process = subprocess.Popen(['python', '-u', 'script.py', message],
+def generate_output(message,id):
+    process = subprocess.Popen(['python', '-u', 'script.py', message, id],
                                stdout=subprocess.PIPE,
                                stderr=subprocess.STDOUT,
                                bufsize=1,
@@ -25,22 +26,32 @@ def generate_output(message):
 def home():
     return 'Api is Healthy'
 
-# Remove this and move it to nextjs 
 @app.route('/upload', methods=['POST'])
 def upload_file():
     if 'file' not in request.files:
         return "Please send a POST request with a file", 400
+    
+    groupId = request.form.get('id')
     file = request.files['file']
+
     if not os.path.exists('./temp'):
-        os.makedirs('./temp')
-    file.save('./temp/' + file.filename)
-    return 'Embeddings made successfully!', 200
+        os.mkdir('temp')
+
+    folder_path = os.path.join('temp', str(groupId))
+    if not os.path.exists(folder_path):
+        os.mkdir(folder_path)
+
+    file.save(os.path.join(folder_path, file.filename))
+
+    MakeEmbeddings(groupId)
+    return 'Embeddings made and saved successfully!', 200
 
 @app.route('/run', methods=['POST'])
 def test():
     try:
         message = request.json.get('message')
-        return Response(generate_output(message), mimetype='text/event-stream')
+        groupId = request.json.get('id')
+        return Response(generate_output(message,groupId), mimetype='text/event-stream')
     except Exception as e:
         return jsonify(str(e))
 

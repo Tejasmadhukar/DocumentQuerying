@@ -14,3 +14,4 @@ venv.bak/
 *.pdf
 *.png
 .DS_Store
+storage*

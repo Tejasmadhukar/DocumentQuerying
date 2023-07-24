@@ -1,5 +1,7 @@
 generator client {
   provider = "prisma-client-js"
+  // binaryTargets = "linux-arm64-openssl-3.0.x"
+  // uncomment above when using docker-compose for development
 }
 
 datasource db {

@@ -10,6 +10,7 @@ import openai
 from llama_index.tools import QueryEngineTool, ToolMetadata
 from llama_index.query_engine import SubQuestionQueryEngine
 from llama_index.query_engine import RetrieverQueryEngine
+from BucketClient import download_bucket,upload_folder
 
 load_dotenv()
 
@@ -30,11 +31,9 @@ def MakeEmbeddings(id):
         index = TreeIndex.from_documents(document)
         index.storage_context.persist(persist_dir = f"storage/{id}")
 
+    upload_folder(f"storage/{id}",id)
+
     return "Embdeddings made successfully !!"
-
-
-def SaveEmbdeddings(id):
-    print('save to s3')
 
 
 def waifu(prompt):
@@ -76,9 +75,8 @@ def preprocessing_prelimnary(id, name = "", description = ""):
     temp_dir = f"storage/{id}"
 
     if not os.path.exists(temp_dir):
-        # download from s3 if present and if not present in s3 return error 
-        print('Not present')
-        return 
+        download_bucket(id,f"storage/{id}") 
+        print("Downloaded Embeddings")
     
 
     storage_context = StorageContext.from_defaults(

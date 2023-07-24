@@ -44,8 +44,7 @@ def upload_file():
     file.save(os.path.join(folder_path, file.filename))
 
     MakeEmbeddings(groupId)
-
-    return 'Embeddings made successfully!', 200
+    return 'Embeddings made and saved successfully!', 200
 
 @app.route('/run', methods=['POST'])
 def test():

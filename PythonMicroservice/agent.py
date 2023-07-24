@@ -1,5 +1,5 @@
 from dotenv import load_dotenv
-from llama_index import SimpleDirectoryReader
+from llama_index import SimpleDirectoryReader, StorageContext, load_index_from_storage
 from langchain.agents import ZeroShotAgent, Tool, AgentExecutor
 from langchain import OpenAI, SerpAPIWrapper, LLMChain
 from huggingface_hub.inference_api import InferenceApi
@@ -16,6 +16,26 @@ load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 query_engine_tools = []
+
+def MakeEmbeddings(id):
+    temp_dir = f"temp/{id}"
+    file_paths = []
+
+    for uploaded_file in os.listdir(temp_dir):
+        file_path = os.path.join(temp_dir, uploaded_file)
+        file_paths.append(file_path)
+
+    for file_path in file_paths:
+        document = SimpleDirectoryReader(input_files=[file_path]).load_data()
+        index = TreeIndex.from_documents(document)
+        index.storage_context.persist(persist_dir = f"storage/{id}")
+
+    return "Embdeddings made successfully !!"
+
+
+def SaveEmbdeddings(id):
+    print('save to s3')
+
 
 def waifu(prompt):
     inference = InferenceApi(repo_id = "hakurei/waifu-diffusion")
@@ -50,36 +70,35 @@ def timeless(prompt):
     output.show()
     return "The image was generated and displayed."
 
-def preprocessing_prelimnary(name = "", description = ""):
+def preprocessing_prelimnary(id, name = "", description = ""):
     names = []
     descriptions = []
-    temp_dir = "temp/"
-    file_paths = []
+    temp_dir = f"storage/{id}"
+
+    if not os.path.exists(temp_dir):
+        # download from s3 if present and if not present in s3 return error 
+        print('Not present')
+        return 
     
-    for uploaded_file in os.listdir(temp_dir):
-        file_path = os.path.join(temp_dir, uploaded_file)
-        file_paths.append(file_path)
-    
-    for file_path in file_paths:
-        document = SimpleDirectoryReader(input_files=[file_path]).load_data()
-        index = TreeIndex.from_documents(document)
-        file_list = os.listdir('./temp')
-        for file_name in file_list:
-            file_path = os.path.join('./temp', file_name)
-            os.remove(file_path)
-        engine = index.as_query_engine(similarity_top_k = 3)
-        retriever = TreeRootRetriever(index)
-        temp_engine = RetrieverQueryEngine(retriever=retriever)
-        summary = temp_engine.query("Write a short concise summary of this document")
-        heading = temp_engine.query("Write a short concise heading of this document")
-        description = str(summary)
-        name = str(heading)
-        query_engine_tools.append(QueryEngineTool(
-            query_engine = engine,
-            metadata = ToolMetadata(name = name, description = description)
-        ))
-        names.append(name)
-        descriptions.append(description)
+
+    storage_context = StorageContext.from_defaults(
+        persist_dir = temp_dir,
+    )
+
+    index = load_index_from_storage(storage_context)
+    engine = index.as_query_engine(similarity_top_k = 3)
+    retriever = TreeRootRetriever(index)
+    temp_engine = RetrieverQueryEngine(retriever=retriever)
+    summary = temp_engine.query("Write a short concise summary of this document")
+    heading = temp_engine.query("Write a short concise heading of this document")
+    description = str(summary)
+    name = str(heading)
+    query_engine_tools.append(QueryEngineTool(
+        query_engine = engine,
+        metadata = ToolMetadata(name = name, description = description)
+    ))
+    names.append(name)
+    descriptions.append(description)
 
     s_engine = SubQuestionQueryEngine.from_defaults(query_engine_tools = query_engine_tools)
     search = SerpAPIWrapper()

@@ -4,17 +4,15 @@ import { authConfig } from "@/config/auth";
 import { getServerSession } from "next-auth";
 
 
-export async function createChatgroup(id:string, title: string) {
+export async function createChatgroup(title: string) {
+    const session = await getServerSession(authConfig)
+    if(!session) throw Error('Not Logged in')
+
     const ChatGroup = await prisma.messageGroup.create({
         data:{
-            'userId': id,
+            'userId': session.user.id,
             'Title': title,
         }
     })
     return ChatGroup;
-}
-
-export async function Getsession() {
-    const session = await getServerSession(authConfig);
-    return session
 }

@@ -26,7 +26,7 @@ def generate_output(message,id):
 def home():
     return 'Api is Healthy'
 
-# In future add id to verify with db session, will do job of auth 
+# In future add userId in request param to verify with db session, will do job of auth 
 @app.route('/upload', methods=['POST'])
 def upload_file():
     if 'file' not in request.files:
@@ -48,7 +48,7 @@ def upload_file():
 
     file.save(os.path.join(folder_path, file.filename))
 
-    # MakeEmbeddings(groupId)
+    MakeEmbeddings(groupId)
     return 'Embeddings made and saved successfully!', 200
 
 @app.route('/run', methods=['POST'])

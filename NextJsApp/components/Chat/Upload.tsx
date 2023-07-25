@@ -3,12 +3,8 @@ import { useRouter } from "next/navigation"
 import { Button, Spacer } from "@nextui-org/react"
 import { FC, useRef, useState } from "react"
 import { FileIcon } from "../icons"
-import { revalidatePath } from "next/cache"
 import { backendUrl } from "@/config/site";
 import { createChatgroup } from "./FileUpload"
-import { Getsession } from "./FileUpload"
-import { title } from "process"
-
 
 const Upload:FC = () => {
     const router = useRouter();
@@ -37,13 +33,11 @@ const Upload:FC = () => {
     }
 
     async function Handleupload(file: File) {
-        const session = await Getsession();
-
-        if(!session) {alert('Not logged in'); return}
-
         try {
-            const [group, fileStatus] = await Promise.all([createChatgroup(session.user.id, title), UploadFile(session.user.id, file)]);
+            const group = await createChatgroup(file.name)
+            const fileStatus = await UploadFile(group.id, file)
             return group.id
+            
         } catch (error) {
             throw error;
         }
@@ -54,8 +48,8 @@ const Upload:FC = () => {
 
         setLoading(true);
         Handleupload(event.target.files[0]).then((data)=>{
-            revalidatePath('/chat');
             router.push(`/chat/${data}`);
+            router.refresh()
         }).catch((Error)=>alert(Error)).finally(()=>setLoading(false))
 
     }

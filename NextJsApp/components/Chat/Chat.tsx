@@ -28,7 +28,7 @@ export default function ChatPage() {
         <>
             <div className="flex flex-col h-screen message group">
                 {messages.length <= 0 ? (
-                    <Upload onSendMessage={handleSendMessage}/>
+                    <Upload />
                 ) : (
                     <TextMessage Messages={messages}/>
                 )}

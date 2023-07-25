@@ -4,7 +4,7 @@ export default function Chat() {
     return (
         <>
             <h1>Upload page goes here </h1>
-            <Link href={'/chat/1'}>nknk</Link>
+            <Link href={'/chat/kdjg'}>nknk</Link>
         </>
     )
 }

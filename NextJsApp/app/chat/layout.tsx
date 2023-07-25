@@ -11,21 +11,17 @@ export default async function ChatLayout(props: {
 
 	if (!session) {
 		return (
-			<>
-				<div className="pt-16 min-h-screen">
-					<NotAllowedChat />
-				</div>
-			</>
+			<div className="pt-16 min-h-screen">
+				<NotAllowedChat />
+			</div>
 		)
 	  }
 
 	return (
-        <>
-			<div className="pt-16 min-h-screen flex">
-				<Sidebar session={session}/>
-				<GoodDivider />
-				{props.children}
-			</div>
-        </>
+		<div className="pt-16 min-h-screen flex">
+			<Sidebar session={session}/>
+			<GoodDivider />
+			{props.children}
+		</div>
 	);
 }

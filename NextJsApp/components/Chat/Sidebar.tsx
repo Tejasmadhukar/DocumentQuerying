@@ -4,6 +4,8 @@ import Link from "next/link";
 import { FC } from "react";
 import { Suspense } from "react";
 import { prisma } from "@/config/db";
+import { GoodSpinner } from "../NextuiClient";
+
 // import { PlusIcon } from "../icons"; Reduce size of this icon so it looks nice 
 
 interface SidebarProps {
@@ -12,11 +14,17 @@ interface SidebarProps {
 
 async function Titles ({ UserID }: { UserID: string }){
 
-    const titles = await prisma.messageGroup.findMany({
-        where:{
-            userId: UserID,
-        }
-    })
+    // const titles = await prisma.messageGroup.findMany({
+    //     where:{
+    //         userId: UserID,
+    //     }
+    // })
+
+    await new Promise((resolve) => {
+        setTimeout(resolve, 1000); 
+    });
+
+const titles = [{id:'danmda',userId:'jsnffsfs',Title:'dummy 1'}, {id:'danmifaniada',userId:'jsnjfnwffsfs',Title:'dummy 2'}, {id:'dfafanmda',userId:'jsnfwfffsfs',Title:'dummy 3'}]
 
     return (
         <>
@@ -35,8 +43,8 @@ const Sidebar:FC<SidebarProps> = ({session}) => {
     return (
         <>
             <div className="w-1/6 flex flex-col items-center">
-                <Button className=" mt-4" as={Link} href="/chat" color="secondary" variant="ghost">New Chat</Button>
-                <Suspense fallback={<p>Loading...</p>}>
+                <Button className="mt-4" as={Link} href="/chat" color="secondary" variant="ghost">New Chat</Button>
+                <Suspense fallback={<div className="mt-20"><GoodSpinner /></div>}>
                     <Titles UserID={session.user.id}/>
                 </Suspense>
             </div>

@@ -14,17 +14,11 @@ interface SidebarProps {
 
 async function Titles ({ UserID }: { UserID: string }){
 
-    // const titles = await prisma.messageGroup.findMany({
-    //     where:{
-    //         userId: UserID,
-    //     }
-    // })
-
-    await new Promise((resolve) => {
-        setTimeout(resolve, 1000); 
-    });
-
-const titles = [{id:'danmda',userId:'jsnffsfs',Title:'dummy 1'}, {id:'danmifaniada',userId:'jsnjfnwffsfs',Title:'dummy 2'}, {id:'dfafanmda',userId:'jsnfwfffsfs',Title:'dummy 3'}]
+    const titles = await prisma.messageGroup.findMany({
+        where:{
+            userId: UserID,
+        }
+    })
 
     return (
         <>

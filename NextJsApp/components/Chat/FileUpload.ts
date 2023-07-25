@@ -1,16 +1,20 @@
 'use server'
+import { prisma } from "@/config/db";
+import { authConfig } from "@/config/auth";
+import { getServerSession } from "next-auth";
 
-const Handleupload = async (file: File): Promise<any> =>{
-    // try {
-    //     const formData = new FormData();
-    //     formData.append("file", file);
-    //     const response = await axios.post('https://backend-test-58bq.onrender.com/upload',formData)
-    //     return response
-    // } catch (error) {
-    //     console.log(error);
-    //     throw error;
-    // }
-    return 'this runs on server'
+
+export async function createChatgroup(id:string, title: string) {
+    const ChatGroup = await prisma.messageGroup.create({
+        data:{
+            'userId': id,
+            'Title': title,
+        }
+    })
+    return ChatGroup;
 }
 
-export default Handleupload;
+export async function Getsession() {
+    const session = await getServerSession(authConfig);
+    return session
+}

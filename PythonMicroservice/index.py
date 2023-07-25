@@ -15,10 +15,10 @@ def generate_output(message,id):
                                universal_newlines=True)
 
     for line in iter(process.stdout.readline, ''):
-        words = line.split()  # Split the line into words
+        words = line.split() 
         for i, word in enumerate(words):
-            if i == len(words) - 1:  # Check if it's the last word in the line
-                yield f'data: {word}\n\n'  # Add newline at the end of the line
+            if i == len(words) - 1:
+                yield f'data: {word}\n\n'
             else:
                 yield f'data: {word} '
 
@@ -26,12 +26,17 @@ def generate_output(message,id):
 def home():
     return 'Api is Healthy'
 
+# In future add id to verify with db session, will do job of auth 
 @app.route('/upload', methods=['POST'])
 def upload_file():
     if 'file' not in request.files:
         return "Please send a POST request with a file", 400
     
     groupId = request.form.get('id')
+
+    if groupId is None:
+        return "Don't call api directly", 400
+
     file = request.files['file']
 
     if not os.path.exists('./temp'):
@@ -43,7 +48,7 @@ def upload_file():
 
     file.save(os.path.join(folder_path, file.filename))
 
-    MakeEmbeddings(groupId)
+    # MakeEmbeddings(groupId)
     return 'Embeddings made and saved successfully!', 200
 
 @app.route('/run', methods=['POST'])

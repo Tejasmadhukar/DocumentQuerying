@@ -1,12 +1,11 @@
 generator client {
   provider = "prisma-client-js"
-  // binaryTargets = "linux-arm64-openssl-3.0.x"
-  // uncomment above when using docker-compose for development
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider = "mysql"
+  url = env("DATABASE_URL")
+  relationMode = "prisma"
 }
 
 model Message {
@@ -16,6 +15,8 @@ model Message {
   groupId         String
   updated_at      DateTime     @default(now())
   MessageGroup    MessageGroup @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  
+  @@index([groupId])
 }
 
 model MessageGroup {
@@ -24,6 +25,8 @@ model MessageGroup {
   Title               String
   Message             Message[]
   user                User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
 }
 
 model User {
@@ -56,6 +59,7 @@ model Account {
   user               User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
+  @@index([userId])
 }
 
 model Session {
@@ -64,6 +68,8 @@ model Session {
   userId       String
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
 }
 
 model VerificationToken {

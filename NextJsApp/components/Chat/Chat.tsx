@@ -2,8 +2,8 @@
 import { MessageGroup } from "@/types";
 import { useState } from "react";
 import ChatInput from "./ChatInput";
+import Upload from "./FileUploading/Upload";
 import TextMessage from "./Text";
-import Upload from "./Upload";
 
 export default function ChatPage({groupId, InitialMessages} : {groupId: string, InitialMessages: MessageGroup[]}) {
     const [messages, setMessages] = useState<MessageGroup[]>([]);

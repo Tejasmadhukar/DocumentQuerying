@@ -1,5 +1,4 @@
-import Link from "next/link"
-import Upload from "@/components/Chat/Upload"
+import Upload from "@/components/Chat/FileUploading/Upload"
 import { title } from "@/components/primitives"
 export default function Chat() {
 

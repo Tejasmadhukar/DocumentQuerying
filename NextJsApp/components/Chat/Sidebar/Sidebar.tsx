@@ -1,11 +1,9 @@
+import { prisma } from "@/config/db";
 import { Button } from "@nextui-org/button";
 import { Session } from "next-auth";
 import Link from "next/link";
-import { FC } from "react";
-import { Suspense } from "react";
-import { prisma } from "@/config/db";
-import { GoodSpinner } from "../NextuiClient";
-
+import { FC, Suspense } from "react";
+import { GoodSpinner } from "../../NextuiClient";
 // import { PlusIcon } from "../icons"; Reduce size of this icon so it looks nice 
 
 interface SidebarProps {
@@ -13,7 +11,6 @@ interface SidebarProps {
 }
 
 async function Titles ({ UserID }: { UserID: string }){
-
     const titles = await prisma.messageGroup.findMany({
         where:{
             userId: UserID,

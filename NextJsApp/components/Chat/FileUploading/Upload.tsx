@@ -1,9 +1,9 @@
 'use client'
-import { useRouter } from "next/navigation"
+import { backendUrl } from "@/config/site"
 import { Button, Spacer } from "@nextui-org/react"
+import { useRouter } from "next/navigation"
 import { FC, useRef, useState } from "react"
-import { FileIcon } from "../icons"
-import { backendUrl } from "@/config/site";
+import { FileIcon } from "../../icons"
 import { createChatgroup } from "./FileUpload"
 
 const Upload:FC = () => {
@@ -48,8 +48,8 @@ const Upload:FC = () => {
 
         setLoading(true);
         Handleupload(event.target.files[0]).then((data)=>{
-            router.push(`/chat/${data}`);
             router.refresh()
+            router.push(`/chat/${data}`);
         }).catch((Error)=>alert(Error)).finally(()=>setLoading(false))
 
     }

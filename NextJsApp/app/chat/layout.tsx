@@ -1,8 +1,8 @@
+import NotAllowedChat from "@/components/Chat/NotAllowedChat";
+import Sidebar from "@/components/Chat/Sidebar/Sidebar";
+import { GoodDivider } from "@/components/NextuiClient";
 import { authConfig } from "@/config/auth";
 import { getServerSession } from "next-auth";
-import NotAllowedChat from "@/components/Chat/NotAllowedChat";
-import Sidebar from "@/components/Chat/Sidebar";
-import { GoodDivider } from "@/components/NextuiClient";
 
 export default async function ChatLayout(props: {
 	children: React.ReactNode,

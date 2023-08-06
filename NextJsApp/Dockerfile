@@ -15,5 +15,6 @@ ENV PORT 3000
 RUN pnpm i 
 
 RUN npx prisma generate
+RUN npx prisma db push
 
 CMD [ "pnpm", "run", "dev" ]

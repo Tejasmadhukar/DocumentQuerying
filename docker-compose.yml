@@ -1,6 +1,17 @@
 version: '3.8'
 
 services:
+  db:
+    image: postgres
+    container_name: local_pgdb
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+    volumes:
+      - local_pgdata:/var/lib/postgresql/data
   nextjs-app:
     build: ./NextJsApp
     ports:
@@ -9,9 +20,15 @@ services:
       - ./NextJsApp:/home/node/app
     depends_on:
       - python-service
+      - db
   python-service:
     build: ./PythonMicroservice
     ports:
       - 80:80
     volumes:
       - ./PythonMicroservice:/app
+    depends_on:
+      - db
+
+  volumes:
+    local_pgdata:

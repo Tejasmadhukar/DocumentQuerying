@@ -2,10 +2,10 @@
 import { MessageGroup } from "@/types";
 import { useState } from "react";
 import ChatInput from "./ChatInput";
+import Upload from "./FileUploading/Upload";
 import TextMessage from "./Text";
-import Upload from "./Upload";
 
-export default function ChatPage() {
+export default function ChatPage({groupId, InitialMessages} : {groupId: string, InitialMessages: MessageGroup[]}) {
     const [messages, setMessages] = useState<MessageGroup[]>([]);
     
     const handleSendMessage = (message: MessageGroup) => {
@@ -28,7 +28,7 @@ export default function ChatPage() {
         <>
             <div className="flex flex-col h-screen message group">
                 {messages.length <= 0 ? (
-                    <Upload onSendMessage={handleSendMessage}/>
+                    <Upload />
                 ) : (
                     <TextMessage Messages={messages}/>
                 )}

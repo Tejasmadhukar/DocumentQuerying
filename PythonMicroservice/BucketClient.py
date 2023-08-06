@@ -31,7 +31,7 @@ def upload_folder(local_folder_path, bucket_name):
     global client
     s3 = client
 
-    if not s3.list_buckets()['Buckets']:
+    if bucket_name not in s3.list_buckets()['Buckets']:
         s3.create_bucket(Bucket=bucket_name)
         print(f"Bucket '{bucket_name}' created successfully.")
 

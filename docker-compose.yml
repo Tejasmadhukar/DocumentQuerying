@@ -11,7 +11,7 @@ services:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin
     volumes:
-      - local_pgdata:/var/lib/postgresql/data
+      - ./local_pgdata:/var/lib/postgresql/data
   nextjs-app:
     build: ./NextJsApp
     ports:
@@ -30,5 +30,5 @@ services:
     depends_on:
       - db
 
-  volumes:
-    local_pgdata:
+volumes:
+  local_pgdata:

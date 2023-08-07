@@ -1,38 +1,39 @@
 import os 
-import boto3
 from dotenv import load_dotenv
+from azure.storage.blob import BlobServiceClient
 
 load_dotenv()
 
-session = boto3.session.Session()
-client = session.client('s3',
-                        region_name='blr1',
-                        endpoint_url='https://blr1.digitaloceanspaces.com',
-                        aws_access_key_id=os.getenv('SPACES_KEY'),
-                        aws_secret_access_key=os.getenv('SPACES_SECRET'))
-
+connect_str = os.getenv('AZURE_STORAGE_CONNECTION_STRING')
+blob_service_client = BlobServiceClient.from_connection_string(connect_str)
 
 def download_bucket(bucket_name, download_path):
-    global client
-    s3 = client
-    response = s3.list_objects_v2(Bucket=bucket_name)
+    global blob_service_client
 
-    if 'Contents' not in response:
+    container_client = blob_service_client.get_container_client(container=bucket_name)
+    blobs = container_client.list_blobs()
+
+    if blobs is None:
+        print("No file exsists")
         return
 
     os.makedirs(download_path, exist_ok=True)
 
-    for obj in response['Contents']:
-        key = obj['Key']
-        file_name = os.path.join(download_path, key)
-        s3.download_file(bucket_name, key, file_name)
+    for blob in blobs:
+        key = blob['name'].split('/')[-1]
+        blob_client = blob_service_client.get_blob_client(container=bucket_name, blob=blob)
+
+        with open(file=os.path.join(download_path, key), mode="wb") as sample_blob:
+            download_stream = blob_client.download_blob()
+            sample_blob.write(download_stream.readall())
+
 
 def upload_folder(local_folder_path, bucket_name):
-    global client
-    s3 = client
+    global blob_service_client
 
-    if bucket_name not in s3.list_buckets()['Buckets']:
-        s3.create_bucket(Bucket=bucket_name)
+    if bucket_name not in blob_service_client.list_containers():
+        container_name = bucket_name
+        blob_service_client.create_container(container_name)
         print(f"Bucket '{bucket_name}' created successfully.")
 
     file_paths = []
@@ -45,5 +46,7 @@ def upload_folder(local_folder_path, bucket_name):
 
     for file_path in file_paths:
         key = os.path.relpath(file_path,local_folder_path)
-        s3.upload_file(file_path, bucket_name, key)
+        blob_client = blob_service_client.get_blob_client(container=bucket_name, blob=key)
+        with open(file=file_path, mode="rb") as data:
+            blob_client.upload_blob(data)
         print(f"Uploaded: {file_path} with key: {key}")

@@ -58,7 +58,7 @@ const Upload:FC = () => {
         <>  
             <Spacer y={10}/>
             <Button onPress={Handleclick} isLoading={Loading} className="" variant="bordered" color="secondary" endContent={<FileIcon />}>Upload</Button>
-            <input type="file" onChange={HandleInputChange} ref={hiddenFileInput} multiple style={{display:'none'}} className="mt-3 border-0" />
+            <input type="file" onChange={HandleInputChange} ref={hiddenFileInput} style={{display:'none'}} className="mt-3 border-0" />
         </>
     )
 }

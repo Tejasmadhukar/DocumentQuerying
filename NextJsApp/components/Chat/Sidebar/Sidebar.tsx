@@ -28,7 +28,7 @@ const Sidebar:FC<SidebarProps> = async ({session}) => {
     const userId = session.user.id;
 
     const queryClient = getQueryClient()
-    await queryClient.prefetchQuery(['titles'], () => getTitles(userId))
+    await queryClient.prefetchQuery(['title'], () => getTitles(userId))
 
     const dehydratedState = dehydrate(queryClient)
 

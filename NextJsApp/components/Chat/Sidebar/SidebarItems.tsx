@@ -2,7 +2,6 @@
 import { Spinner } from "@nextui-org/react"
 import { MessageGroup } from "@prisma/client"
 import { useQuery } from "@tanstack/react-query"
-
 import SidebarItem from "./SidebarItem"
 
 interface SidebarItemsProps {
@@ -25,8 +24,6 @@ export default function SidebarItems (props: SidebarItemsProps){
 
     return (
         <>
-            
-            
             {data?.map((title,index)=>(
                 <SidebarItem key={index} title={title} />
             ))}

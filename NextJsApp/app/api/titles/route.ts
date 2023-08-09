@@ -15,6 +15,6 @@ export async function GET(req: Request) {
         })
         return new Response(JSON.stringify(titles), { status: 200 })
     } catch (error) {
-        
+        return new Response('Failed to fetch', { status: 500 })
     }
 }

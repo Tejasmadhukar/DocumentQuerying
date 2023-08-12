@@ -17,7 +17,6 @@ async function deleteTitle (id: string) {
                 'Content-Type': 'application/json'
             }
         })
-    
         if(!res.ok) {
             throw new Error(`deletion failed: ${id}`)
         }

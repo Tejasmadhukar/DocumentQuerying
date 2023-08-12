@@ -37,7 +37,7 @@ const Sidebar:FC<SidebarProps> = async ({session}) => {
             <div className="w-1/6 flex flex-col items-center">
                 <Button className="mt-4" as={Link} href="/chat" color="secondary" variant="ghost">New Chat</Button>
                 <Hydrate state={dehydratedState}>
-                    <SidebarItems userId={userId}/>
+                    <SidebarItems />
                 </Hydrate>
             </div>
         </>

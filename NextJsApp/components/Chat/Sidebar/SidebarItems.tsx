@@ -4,10 +4,6 @@ import { MessageGroup } from "@prisma/client"
 import { useQuery } from "@tanstack/react-query"
 import SidebarItem from "./SidebarItem"
 
-interface SidebarItemsProps {
-    userId: string,
-}
-
 async function getTitles() {
     const res = await fetch('/api/titles');
     if (!res.ok) {
@@ -17,7 +13,7 @@ async function getTitles() {
     }
 }
 
-export default function SidebarItems (props: SidebarItemsProps){
+export default function SidebarItems (){
     const {data, isLoading} = useQuery<MessageGroup[]>(['title'], () => getTitles())
 
     if(isLoading) return <div className="mt-10"><Spinner /></div>

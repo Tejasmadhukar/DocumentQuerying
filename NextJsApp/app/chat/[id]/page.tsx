@@ -1,6 +1,7 @@
-import { prisma } from "@/config/db"
-import ChatPage from "@/components/Chat/Chat"
-import { GoodSpinner } from "@/components/NextuiClient"
+import getQueryClient from "@/app/getQueryClient";
+import ChatPage from "@/components/Chat/Chat";
+import { prisma } from "@/config/db";
+import { Hydrate, dehydrate } from "@tanstack/react-query";
 
 async function getInitialMessages (groupId: string) {
     try {
@@ -14,13 +15,18 @@ async function getInitialMessages (groupId: string) {
 }
 
 export default async function Chat ({params}: {params: {id: string}}) {
-    const messages = await getInitialMessages(params.id);
+    const groupId = params.id;
+
+    const queryCLient = getQueryClient();
+    await queryCLient.prefetchQuery(['messages'], () => getInitialMessages(groupId))
+
+    const dehydratedState = dehydrate(queryCLient)
 
     return (
         <>
-            {/* Messages will go in chatpage into react state where they will be preserved on soft navigation */}
-            {/* React query will handle Query and mutation using SetMessages setter on client side entirely */}
-            {/* <ChatPage groupId={params.id}/> */}
+            <Hydrate state={dehydratedState}>
+                <ChatPage groupId={groupId}/>
+            </Hydrate>
         </>
     )
 }

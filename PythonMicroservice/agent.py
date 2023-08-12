@@ -113,7 +113,7 @@ def preprocessing_prelimnary(id, name = "", description = ""):
 
     tools = [Tool(
             name = "Llama-Index",
-            func = s_engine.query,
+            func = engine.query,
             description = f"This is an AI Agent like yourself, so ask it as you would ask yourself (in full English sentences). Has knowledge on the topics of - {names}",
             return_direct = True
             ),

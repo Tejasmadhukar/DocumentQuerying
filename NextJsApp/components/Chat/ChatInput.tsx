@@ -8,40 +8,12 @@ import { SendIcon } from "../icons";
 
 interface ChatInputProps {
     groupId: string;
+    scrollFunction: () => void;
 }
 
-const ChatInput: React.FC<ChatInputProps> = ({groupId}) => {
+const ChatInput: React.FC<ChatInputProps> = ({groupId, scrollFunction}) => {
     const queryClient = useQueryClient();   
     const [inputMessage, setinputMessage] = useState('');
-    const [responseMessage, setresponseMessage] = useState('');
-
-    const FetchResponse = async (query: string)  => {
-        const postData = {
-            message: query,
-            id: groupId,
-        };
-
-        const myHeaders = new Headers();
-        myHeaders.append('Content-Type', 'application/json');
-      
-        const response = await fetch(`${backendUrl}/run`, {
-            method: 'POST',
-            body: JSON.stringify(postData),
-            headers: myHeaders,
-        });
-      
-        if (!response.body) throw Error('failed to fetch response');
-      
-        const reader = response.body.pipeThrough(new TextDecoderStream()).getReader();
-      
-        // eslint-disable-next-line no-constant-condition
-        while (true) {
-            const { value, done } = await reader.read();
-            if (done) break;
-            setresponseMessage((prevData) => prevData + value);
-        }
-        return responseMessage;
-    }
 
     const saveHumanMessage = async(message: string) => {
         const request_body = {
@@ -89,67 +61,74 @@ const ChatInput: React.FC<ChatInputProps> = ({groupId}) => {
         }
     }
 
+    const FetchResponse = async (message: string)  => {
+        setinputMessage('')
+        scrollFunction()
+        let previousMessages = queryClient.getQueryData<Message[]>(['messages'])
+
+        let HumanMessage: Message = {'content_message': message, groupId, 'created_by': 'user', 'id': 'client_human_message', 'updated_at': new Date()}
+
+        if(previousMessages){
+            previousMessages = [...previousMessages, HumanMessage]
+        }
+    
+        queryClient.setQueryData<Message[]>(['messages'], previousMessages)
+        scrollFunction()
+        const postData = {
+            message: message,
+            id: groupId,
+        };
+
+        const myHeaders = new Headers();
+        myHeaders.append('Content-Type', 'application/json');
+
+        const response = await fetch(`${backendUrl}/run`, {
+            method: 'POST',
+            body: JSON.stringify(postData),
+            headers: myHeaders,
+        });
+
+        if (!response.body) throw Error('failed to fetch response');
+    
+        const reader = response.body.pipeThrough(new TextDecoderStream()).getReader();
+
+        let UpdatedMessage: Message = {'content_message': ' ', groupId, 'created_by': 'bot', 'id': 'message_streamed_in', 'updated_at': new Date()};
+
+        previousMessages = queryClient.getQueryData<Message[]>(['messages'])
+
+        if(previousMessages){
+            previousMessages = [...previousMessages, UpdatedMessage]
+        }
+        
+        let data = ''
+        // eslint-disable-next-line no-constant-condition
+        while (true) {
+            const { value, done } = await reader.read();
+            if (done) break;
+            data = data + value;
+            let streamedMessage: Message = {'content_message': data, groupId, 'created_by': 'bot', 'id': 'message_streamed_in', 'updated_at': new Date()}
+        
+            if(previousMessages){
+                previousMessages[previousMessages.length-1] = streamedMessage
+            }
+            queryClient.setQueryData<Message[]>(['messages'], previousMessages)
+            scrollFunction();
+        }
+        await saveBotMessage(data);
+    }
+
     const newMessageMutation = useMutation({
-        mutationFn: saveHumanMessage,
+        mutationFn: FetchResponse,
         onMutate: async(message: string) => {
             await queryClient.cancelQueries({queryKey: ['messages']})
-            let previousMessages = queryClient.getQueryData<Message[]>(['messages'])
-
-            let HumanMessage: Message = {'content_message': message, groupId, 'created_by': 'user', 'id': 'client_human_message', 'updated_at': new Date()}
-
-            if(previousMessages){
-                previousMessages = [...previousMessages, HumanMessage]
-            }
-        
-            queryClient.setQueryData<Message[]>(['messages'], previousMessages)
-
-            const postData = {
-                message: message,
-                id: groupId,
-            };
-
-            const myHeaders = new Headers();
-            myHeaders.append('Content-Type', 'application/json');
-
-            const response = await fetch(`${backendUrl}/run`, {
-                method: 'POST',
-                body: JSON.stringify(postData),
-                headers: myHeaders,
-            });
-
-            if (!response.body) throw Error('failed to fetch response');
-        
-            const reader = response.body.pipeThrough(new TextDecoderStream()).getReader();
-
-            let UpdatedMessage: Message = {'content_message': responseMessage, groupId, 'created_by': 'bot', 'id': 'message_streamed_in', 'updated_at': new Date()};
-
-            if(previousMessages){
-                previousMessages = [...previousMessages, UpdatedMessage]
-            }
-            
-            // eslint-disable-next-line no-constant-condition
-            while (true) {
-                const { value, done } = await reader.read();
-                if (done) break;
-                setresponseMessage((prevData) => prevData + value);
-                let streamedMessage: Message = {'content_message': responseMessage, groupId, 'created_by': 'bot', 'id': 'message_streamed_in', 'updated_at': new Date()}
-                
-                if(previousMessages){
-                    previousMessages[previousMessages.length-1] = streamedMessage
-                }
-            
-                queryClient.setQueryData<Message[]>(['messages'], previousMessages)
-            }
-
-            await saveBotMessage(responseMessage);
-            setresponseMessage('');
+            await saveHumanMessage(message)
         },
 
         onError: () => {
-            alert('There was an error fetching response and saving messages, contact tejasmadhukar6@gmail.com')
+            alert('There was an error fetching response and saving messages, please run your query again')
         },
 
-        onSettled: () => {
+        onSettled: async() => {
             queryClient.invalidateQueries(['messages'])
         }
     })
@@ -162,8 +141,6 @@ const ChatInput: React.FC<ChatInputProps> = ({groupId}) => {
         event.preventDefault();
         newMessageMutation.mutate(inputMessage);
     };
-
-    
 
     return (
         <div className="sticky bottom-1 z-20 bg-opacity-80 backdrop-filter backdrop-blur-md">

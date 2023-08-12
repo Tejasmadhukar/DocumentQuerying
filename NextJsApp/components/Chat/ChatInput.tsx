@@ -73,7 +73,18 @@ const ChatInput: React.FC<ChatInputProps> = ({groupId, scrollFunction}) => {
         }
     
         queryClient.setQueryData<Message[]>(['messages'], previousMessages)
+
+        previousMessages = queryClient.getQueryData<Message[]>(['messages'])
+        let ThinkingMessage: Message = {'content_message': 'Thinking......', groupId, 'created_by': 'bot', 'id': 'client_thinking_message', 'updated_at': new Date()}
+
+        if(previousMessages){
+            previousMessages = [...previousMessages, ThinkingMessage]
+        }
+    
+        queryClient.setQueryData<Message[]>(['messages'], previousMessages)
+
         scrollFunction()
+        
         const postData = {
             message: message,
             id: groupId,
@@ -95,6 +106,7 @@ const ChatInput: React.FC<ChatInputProps> = ({groupId, scrollFunction}) => {
         let UpdatedMessage: Message = {'content_message': ' ', groupId, 'created_by': 'bot', 'id': 'message_streamed_in', 'updated_at': new Date()};
 
         previousMessages = queryClient.getQueryData<Message[]>(['messages'])
+        previousMessages?.pop()
 
         if(previousMessages){
             previousMessages = [...previousMessages, UpdatedMessage]

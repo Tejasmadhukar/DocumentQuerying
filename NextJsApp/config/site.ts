@@ -5,10 +5,6 @@ export const siteConfig = {
 	description: "GPT made to think specifically for you.",
 	navItems: [
 		{
-			label: "How To",
-			href: "/about",
-		},
-		{
 			label: "Chat",
 			href: "/chat",
 		}
@@ -17,10 +13,6 @@ export const siteConfig = {
 		{
 			label: "Chat",
 			href: "/chat",
-		},
-		{
-			label: "How To",
-			href: "/about",
 		},
 	],
 	links: {

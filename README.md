@@ -51,6 +51,6 @@ To stop DocumentQuerying, do `Ctrl + C` in Terminal.
 
 * <strong>Request-Response and Response streaming with Server Sent Events using REST Api.</strong>
 * [Langchain](https://www.langchain.com)
-* [Llma Index](https://www.llamaindex.ai)
+* [Llama Index](https://www.llamaindex.ai)
 * [Flask](https://pypi.org/project/Flask)
 
